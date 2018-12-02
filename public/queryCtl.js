@@ -5,7 +5,8 @@ angular.module("queryApp")
         function ($scope,$http,$q) {
 
             $scope.input = {}
-            $scope.input.patientId = 'A01';
+
+
 
             //retrieve the scope information...
             $http.get('/serverdata').then(
@@ -29,7 +30,7 @@ angular.module("queryApp")
             );
 
 
-            $scope.standardQueries = function(patientId){
+            $scope.standardQueriesDEP = function(patientId){
                 if ($scope.config && $scope.config.defaultQueries) {
                     var queries = [];
                     $scope.sqResults = {}
@@ -72,16 +73,18 @@ angular.module("queryApp")
             };
 
             $scope.executeQuery = function(srch) {
-                $scope.waiting = true;
-                $http.get('/orionfhir/'+srch).then(
-                    function (data) {
+                delete $scope.resultsBundle;
+                delete $scope.error;
 
+                $scope.waiting = true;
+                $http.get('/sendquery/'+srch).then(
+                    function (data) {
                         $scope.resultsBundle = data.data;
 
                     },function(err) {
                         console.log(err)
-                        alert('Error executing query: ' +srch + "\n" + angular.toJson(err.data) )
-                        $scope.error = err;
+                        //alert('Error executing query: ' +srch + "\n" + angular.toJson(err.data) )
+                        $scope.error = err.data;
                     }
                 ).finally(
                     function(){

@@ -1,0 +1,36 @@
+{
+  "servers": [
+    {
+      "name" : "clinFHIR Smart Client Proxy",
+      "description":"A SMART enabled server that acts as a front end proxy to either a database or a FHIR server",
+      "baseUrl" : "https://localhost:8444/fhir/",
+      "callback" : "https://localhost:8448/callback",
+      "clientId" : "clinfhir-test",
+      "secret": "mySecret",
+      "defaultScope" :"openid profile patient/*.read",
+      "clientIdConfig": "https://localhost:8444/fhir/openid-configuration"
+    },
+    {
+      "name" : "SmartHealthIT - successful",
+      "description":"Calls the SMART sandbox provider standalone,",
+      "baseUrl" : "https://launch.smarthealthit.org/v/r3/sim/eyJoIjoiMSIsImkiOiIxIiwiZSI6InNtYXJ0LVByYWN0aXRpb25lci03MTAzMjcwMiJ9/fhir/",
+      "callback" : "https://localhost:8448/callback",
+      "clientId" : "d90584cc-3b0e-40db-8543-536df45a84f4",
+      "secret": "a07NAYD7lnhfBh1b9614dPp_lZxyK5Hf7ImS8GJ2XnbD8SE-ZzAqJhyKykL7359ip0AG5bLC172_M5mhWxuRig",
+      "clientIdConfig": "https://launch.smarthealthit.org/.well-known/openid-configuration",
+      "defaultScope" :"openid profile patient/*.*"
+
+    },
+    {
+      "name" : "mySmile",
+      "description":"My Amazon SMILE server",
+      "fhirVersion" : "3",
+      "baseUrl" : "https://hof.smilecdr.com:8000/",
+      "callback" : "https://localhost:8444/callback",
+      "clientId" : "clinfhir-test",
+      "secret": "mySecret",
+      "clientIdConfig": "https://hof.smilecdr.com:9200/openid-configuration",
+      "defaultScope" :"openid profile patient/*.read"
+    }
+  ]
+}

@@ -12,15 +12,6 @@ const WebSocket = require('ws');
 //app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-//initialize the session...
-/*
-app.use(session({
-    secret: 'mySecret',
-    resave: true,
-    saveUninitialized: true,
-    cookie: { secure: true }   // secure cookins needs ssl...
-}));
-*/
 
 const sessionParser = session({
     saveUninitialized: false,
@@ -30,9 +21,6 @@ const sessionParser = session({
 })
 
 app.use(sessionParser);
-
-
-
 
 //enable SSL - https://aghassi.github.io/ssl-using-express-4/
 const https = require('https');
@@ -52,7 +40,7 @@ app.use(express.static('public'));
 //this must be first middleware
 app.use(function (req, res, next) {
     let ip = req.connection.remoteAddress;
-    //console.log('ip',ip)
+
 
     if (hashConnections[ip] ) {
         console.log('setting ws connection from hash')
@@ -119,8 +107,6 @@ app.post('/setup',function(req,res){
     req.session.config = req.body;
 
 
-    console.log(config)
-    //req.session.config = config;
     delete req.session['serverData'];      //will return the server granted scope
 
     var options = {
@@ -131,8 +117,6 @@ app.post('/setup',function(req,res){
         },
         headers: {accept:'application/json+fhir'}       //todo - may need to set this according to the fhir version...
     };
-
-    console.log('options',options);
 
     request(options, function (error, response, body) {
         if (response && response.statusCode == 200) {
@@ -167,3 +151,6 @@ app.get('/serverdata',function(req,res){
     }
 });
 
+app.get('/smartConfig',function(req,res){
+   res.sendFile(__dirname + "/config/smartServers.json")
+});

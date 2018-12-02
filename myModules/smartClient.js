@@ -64,22 +64,69 @@ let init = (app) => {
         vo.type = 'code';       //other option is 'refresh'
         vo.wsConnection = req.wsConnection;
         vo.session = req.session;
-        getAuthToken(vo).then(
+        getAccessToken(vo).then(
             function(){
-                logger.log(req.wsConnection,'retrieved Auth token','app');
+                logger.log(req.wsConnection,'retrieved Access token','app');
                 res.redirect('query.html');
             },
             function(msg) {
-                logger.log(req.wsConnection,'error calling auth token request:'+msg,'app');
+                logger.log(req.wsConnection,'error calling Access Token request:'+msg,'app');
                 res.redirect('error.html?msg='+msg)
             }
         )
     });
+
+
+
+    //make a FHIR call. the remainder of the query beyond '/orionfhir/*' is the actual query to be sent to the server
+    app.get('/sendquery/*',function(req,res){
+
+        let fhirQuery = req.originalUrl.substr(11); //strip off /sendquery
+        let access_token = req.session['accessToken'];
+        let config = req.session["config"];     //retrieve the configuration from the session...
+
+        let url;
+        if (config.baseUrl[config.baseUrl.length-1] !== '/') {
+            url = config.baseUrl + '/' + fhirQuery;
+        } else {
+            url = config.baseUrl  + fhirQuery;
+        }
+
+        let options = {
+            method: 'GET',
+            uri: url,
+            encoding : null,
+            agentOptions: {         //allows self signed certificates to be used...
+                rejectUnauthorized: false
+            },
+            headers: {'authorization': 'Bearer ' + access_token,'accept':'application/fhir+json'}
+        };
+        logger.log(req.wsConnection,'Making request: '+url,'app');
+
+        request(options, function (error, response, body) {
+            if (error) {
+                var err = error || body;
+                res.send(err,500)
+            } else if (response && response.statusCode !== 200) {
+                //eg if asked for a resource that you don't have access to...
+                var err = {err: body.toString()};
+                err.statusCode = response.statusCode
+                res.status(500).send(err);
+            } else {
+                res.send(body)
+            }
+        })
+    });
+
+
+
 };
 
 
 
-let getAuthToken = (vo) => {
+
+
+let getAccessToken = (vo) => {
     return new Promise(function(resolve,reject){
 
         var options = {
