@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <base href="/" />
+    <meta charset="UTF-8">
+
+    <script src="angular.min1-5.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+    <script src="ui-bootstrap-tpls-2.0.1.min.js"></script>
+
+    <!--
+     <script src="js/libs/jquery-1.9.0.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/vis.min.css"/>
+
+    <script src="js/libs/moment.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="css/main.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/jsTreeStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jsTreeThemes/proton/style.css"/>
+
+    <script src="js/libs/angular-sanitize.js"></script>
+
+    -->
+
+    <script>
+        angular.module("queryApp",['ui.bootstrap']).config(function($locationProvider) {
+
+            // enable html5Mode for pushstate ('#'-less URLs)  -- ,'ngStorage'
+            $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
+        });
+        //angular.module("sampleApp").constant("moment", moment);
+
+    </script>
+
+
+    <!--
+      <script src="js/modalDialogSvc.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/libs/vis.min.js"></script>
+
+    -->
+    <script src="queryCtl.js"></script>
+
+
+
+        <title>SMART query</title>
+
+</head>
+
+
+<body style="padding-top: 80px">
+
+<div ng-app="queryApp" ng-controller="queryCtrl" class="container-fluid">
+
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+        <div class="container-fluid">
+            <div class="col-md-3 col-sm-3">
+                <span class="navbar-brand" href="#">
+                   clinFHIR SMART Tester: Query patient
+                </span>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+
+            </div>
+
+            <div class="col-md-1 col-sm-1">
+
+                <form class="navbar-form navbar-left">
+                    <img ng-show="waiting" src="ajax_loader_blue_32.gif"/>
+                </form>
+
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+
+            </div>
+
+
+            <div class="col-md-2 col-sm-2">
+
+            </div>
+        </div>
+    </nav>
+    <h3>Successful login.  User: {{idToken.payload.sub}}</h3>
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <strong>Scopes granted</strong>
+            <div>{{scope}}</div>
+        </div>
+
+        <div class="col-sm-4 col-md-4"  ng-show="1==2">
+            <strong>Patient</strong>
+            <div>
+                <div class="row">
+                    <div class="col-sm-2 col-md-2">
+                        Id:
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <input class="form-control" ng-model="input.patientId"/>
+                    </div>
+                </div>
+<!--
+                {{sqResults.Patient.id}}
+                -->
+
+            </div>
+            <div>Name: <span ng-repeat="given in sqResults.Patient.name[0].given">{{given}} </span> {{sqResults.Patient.name[0].family}}</div>
+
+        </div>
+
+    </div>
+    <br/>
+
+    <uib-tabset>
+
+        <uib-tab heading="Ad-hoc Query">
+            <br/>
+
+            <div class="row">
+                <div class="col-sm-1 col-md-1">
+                    Query
+                </div>
+                <div class="col-sm-5 col-md-5">
+                    <input class="form-control" ng-model="input.query"/>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <button ng-disabled="waiting" class="btn btn-primary" ng-click="executeQuery(input.query)">Execute</button>
+                </div>
+            </div>
+
+            <pre ng-show="resultsBundle">{{resultsBundle | json}}</pre>
+        </uib-tab>
+
+
+        <uib-tab heading="Supported resources">
+            <div class="row">
+                <div class="col-md-2 col-sm-2">
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="resource in capStmt.rest[0].resource"
+                            ng-click="input.selectedMetaDataResource = resource">
+                            {{resource.type}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10 col-sm-10">
+                    <pre>{{input.selectedMetaDataResource | json}}</pre>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab heading="Tokens" ng-show="idToken || fullToken">
+            <!--
+            <h4>Access token</h4>
+            <input class="form-control" ng-model="fullToken['access_token']"/>
+            -->
+            <h4>Server response to request for Access Token</h4>
+            <pre>{{fullToken | json}}</pre>
+            <h4>Access token</h4>
+
+            <pre>{{atDecoded | json}}</pre>
+
+            <h4>Id Token</h4>
+            <pre>{{idToken | json}}</pre>
+        </uib-tab>
+        <uib-tab heading="Capability Statement Json">
+            <pre>{{capStmt | json}}</pre>
+        </uib-tab>
+    </uib-tabset>
+
+
+
+
+
+</div>
+
+
+</body>
+</html>
