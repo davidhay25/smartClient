@@ -8,6 +8,9 @@
 
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
 
+
+
+
     <script>
 /*
         var ws = new WebSocket("wss://localhost:8448");
@@ -94,6 +97,31 @@
     </div>
 </div>
 
+
+<script>
+    const message = 'msg'+ new Date().getTime();
+
+    var worker = new SharedWorker("sharedWorker.js","main worker");
+    worker.port.addEventListener("message", function(e) {
+        console.log(message, e.data);
+        if (e.data !== message) {
+
+            alert('another instance open')
+        }
+
+
+    }, false);
+
+
+    worker.port.start();
+
+
+    // post a message to the shared web worker
+    worker.port.postMessage(message);
+
+    // send message to web worker
+
+</script>
 
 </body>
 </html>

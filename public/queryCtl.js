@@ -83,8 +83,12 @@ angular.module("queryApp")
 
                     },function(err) {
                         console.log(err)
-                        //alert('Error executing query: ' +srch + "\n" + angular.toJson(err.data) )
-                        $scope.error = err.data;
+                        try {
+                            $scope.error = angular.fromJson(err.data.err);
+                        } catch (ex) {
+                            $scope.error = err.data
+                        }
+
                     }
                 ).finally(
                     function(){

@@ -8,7 +8,10 @@ let log = (wss,msg) => {
 */
 
     console.log(msg)
-    wss.send(msg)
+    if (wss) {
+        wss.send(msg)
+    }
+
 
 }
 
