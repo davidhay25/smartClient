@@ -1,3 +1,5 @@
+/* The server for the smartClient app*/
+
 const express = require('express')
 const bodyParser = require('body-parser');  //https://expressjs.com/en/resources/middleware/body-parser.html - must be before setting app
 const handlebars = require('handlebars');

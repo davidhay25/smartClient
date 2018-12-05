@@ -13,6 +13,7 @@
     "express-session": "^1.15.6",
     "handlebars": "^4.0.12",
     "jsonwebtoken": "^8.4.0",
+    "jwk-to-pem": "^2.0.0",
     "request": "^2.88.0",
     "websocket": "^1.0.28",
     "ws": "^6.1.2"

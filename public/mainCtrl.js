@@ -1,15 +1,17 @@
 angular.module("smartTester")
     .controller('mainCtrl',
-        function ($scope,$http) {
+        function ($scope,$http,$localStorage,$uibModal) {
 
 
             //note: https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe/related
             //ensures that login can be in iframe
 
-            let wsUrl = 'wss://'+ window.location.host
+            //the websocket for feedback from the local server
+            let wsUrl = 'wss://'+ window.location.host;
             let ws = new WebSocket(wsUrl);
 
-
+            //the callback url
+            $scope.callBackUrl = window.location.origin + "/callback";
 
             $scope.input = {};
 
@@ -20,16 +22,99 @@ angular.module("smartTester")
                 $scope.$digest();
             };
 
-            $http.get('/smartConfig').then(
-                function(data) {
-                    $scope.smartServers = data.data.servers;
-                    $scope.input.server = $scope.smartServers[0]
-                }, function(err) {
-                    alert('Unable to load config')
-                }
-            );
+            //store the configuration in local storage. Initialize from the pre-defined set...
+            if (! $localStorage.smartConfig) {
+                $http.get('/smartConfig').then(
+                    function(data) {
+                        $localStorage.smartConfig = data.data.servers
+                        //$scope.smartServers = data.data.servers;
+                        $scope.input.server = $scope.servers[0]
+                    }, function(err) {
+                        alert('Unable to load config')
+                    }
+                );
+            } else {
+                $scope.servers = $localStorage.smartConfig;
+                $scope.input.server = $scope.servers[0]
+            }
+
+            //edit the list of smart servers configured in this browser
+            $scope.edit = function() {
+                $uibModal.open({
+                    templateUrl: 'editSMARTServerList.html',
+                    size : 'lg',
+                    controller:
+                        function($scope,servers,callBackUrl) {
+                            $scope.servers = servers;
+                            $scope.callBackUrl = callBackUrl;
+                            $scope.dirty = false;
+
+                            //Select a server from the list
+                            $scope.selectSvr = function (svr) {
+                                $scope.selectedServer = svr
+                            };
+
+                            //remove the current item
+                            $scope.remove = function() {
+                                let pos = -1
+                                $scope.servers.forEach(function(svr,inx){
+                                    if (svr.name == $scope.selectedServer.name ) {
+                                        pos = inx
+                                    }
+                                });
+                                if (pos > -1) {
+                                    $scope.servers.splice(pos,1)
+                                    $scope.dirty = true;
+                                }
+                            };
+
+                            $scope.change = function(){
+                                $scope.dirty = true;
+                            };
+
+                            //Add a new server
+                            $scope.add = function() {
+                                let newServer = {"name":"New Server",callback:callBackUrl}
+                                $scope.servers.push(newServer)
+                                $scope.selectedServer = newServer;
+                                $scope.dirty = true;
+                            };
+
+                            $scope.save = function(){
+                                $scope.$close($scope.servers)
+                            }
+
+                    },
+                    resolve: {
+                        servers: function () {          //the default config
+                            return  angular.copy($scope.servers) ;
+                        },
+                        callBackUrl: function(){
+                            return $scope.callBackUrl
+                        }
+                    }
+                }).result.then(
+                    function(lst) {
+                        //if the list has been updated
+
+                        $localStorage.smartConfig = lst;
+                        $scope.servers = lst
+                        $scope.input.server = $scope.servers[0]
+
+                    }
+
+                )
+
+            };
+
 
             $scope.start = function() {
+
+                if ($scope.input.server.callback !== $scope.callBackUrl) {
+                    alert('The callback url must be '+ $scope.callBackUrl);
+                    return
+                }
+
                 $scope.messages.length = 0;
                 $scope.messages.push({msg:"Initiating login...",src:'server'});
                 $http.post('/setup',$scope.input.server).then(
@@ -50,7 +135,6 @@ angular.module("smartTester")
         }
         ).filter('trustAsResourceUrl', ['$sce', function($sce) {
              return function(val) {
-                 console.log(val)
                 return $sce.trustAsResourceUrl(val);
             };
-        }])
+        }]);

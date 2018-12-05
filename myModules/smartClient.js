@@ -1,6 +1,7 @@
 const logger = require('./logger');
 const request = require('request');
-const jwt  = require('jsonwebtoken');
+const jwt  = require('jsonwebtoken');   //https://www.npmjs.com/package/jsonwebtoken
+const jwkToPem = require("jwk-to-pem"); //https://www.npmjs.com/package/jwk-to-pem
 
 let init = (app) => {
 
@@ -66,7 +67,7 @@ let init = (app) => {
         vo.session = req.session;
         getAccessToken(vo).then(
             function(){
-                logger.log(req.wsConnection,'retrieved Access token','app');
+                //logger.log(req.wsConnection,'retrieved Access token','app');
                 res.redirect('query.html');
             },
             function(msg) {
@@ -122,13 +123,9 @@ let init = (app) => {
 
 };
 
-
-
-
-
 let getAccessToken = (vo) => {
     return new Promise(function(resolve,reject){
-
+        logger.log(vo.wsConnection,'Requesting access token','app');
         var options = {
             method: 'POST',
             uri: vo.url,
@@ -148,7 +145,7 @@ let getAccessToken = (vo) => {
             options.headers.Authorization = 'Basic ' + buff.toString('base64')
         }
 
-        //perform the POST request to get the auth token...
+        //perform the POST request to get the access token...
         request(options, function (error, response, body) {
 
             if (error) {
@@ -161,7 +158,11 @@ let getAccessToken = (vo) => {
                 if ( response.statusCode == 200) {
                     //save the access token in the session cache. Note that this is NOT sent to the client
                     var token = JSON.parse(body);
-                    logger.log(vo.wsConnection,'successful auth token request','app');
+                    console.log('-----------');
+
+                    console.log('at',token)
+                    console.log('-----------');
+                    logger.log(vo.wsConnection,'successful access token request','app');
 
                     vo.session['accessToken'] = token['access_token']
                     vo.session.serverData.scope = token.scope;
@@ -170,42 +171,120 @@ let getAccessToken = (vo) => {
 
                     //assume the auth token is a jwt token.
                     try {
-                        var at = jwt.decode(token['access_token'], {complete: true})
-                        console.log(at)
-                        vo.session.serverData.decodedAccessToken = at
-                        logger.log(vo.wsConnection,'Auth token a JWT token','app');
+                        var access_token = jwt.decode(token['access_token'], {complete: true})
+                        console.log(access_token)
+                        vo.session.serverData.decodedAccessToken = access_token;
+                        logger.log(vo.wsConnection,'access token is a JWT token','app');
 
                     } catch (ex) {
                         console.log('Access token is not a JWT token')
                     }
-                    console.log('-----------')
+
+                    console.log('-----------',access_token);
+
+
+                    console.log(access_token.payload)
                     //an id token was returned
-                    if (token['id_token']) {
-                        var id_token = jwt.decode(token['id_token'], {complete: true});
-                        vo.session.serverData['idToken'] = id_token;
-                        console.log('id_token')
-                        console.log(id_token)
-                        console.log('-----------')
+                    let id_token = token['id_token'];
+                    if (id_token) {
+                        logger.log(vo.wsConnection,'An id token was returned ','app');
+
+                        validateIDToken(id_token).then(
+                            function(id_token){
+                                vo.session.serverData['idToken'] = id_token;
+                                console.log('it',id_token)
+                                logger.log(vo.wsConnection,'Token is valid ','app');
+                            },
+                            function(err){
+                                logger.log(vo.wsConnection,'Token failed validation: '+err,'app');
+                            }
+                        );
                     }
                     resolve();
                 } else {
-                    logger.log(vo.wsConnection,'error calling auth token request:'+response.statusCode,'app');
+                    logger.log(vo.wsConnection,'error making access token request:'+response.statusCode,'app');
                 }
 
             } else {
                 console.log(body);
                 console.log(error);
-                logger.log(vo.wsConnection,'error calling auth token request','app');
+                logger.log(vo.wsConnection,'error making access token request','app');
                 reject(body)
                 vo.session.error = body;
 
             }
         })
+    })
+};
+
+let validateIDToken = (rawidtoken) => {
+    let idtoken = jwt.decode(rawidtoken, {complete: true});     //todo look for errors...
+    return new Promise(function(resolve,reject) {
+
+        let issuer = idtoken.payload.iss || token.payload.issuer;      //the issuer of the token (the spec says 'issuer' but I think it means 'iss'...
+        if (issuer) {
+            let configUrl = issuer + '/.well-known/openid-configuration';     //the location of the keys..
+            request.get(configUrl, function (err, resp, body) {
+                if (!err && body) {
+                    var json = JSON.parse(body)
+                    console.log(body)
+                    console.log(json['jwks_uri'])
+                    if (json['jwks_uri']) {
+                        var url = json['jwks_uri'];
+                        request.get(url, function (err, resp, body) {
+                            if (!err && body) {
+
+                                //let keys = JSON.parse(body);        //should be the decryption keys...
+
+                                let webKey = JSON.parse(body);        //should be the decryption keys...
+
+                                //just grab the first key...
+                                var key = webKey.keys[0]
+
+                                let alg = idtoken.header.alg;   //signing algorithm used
+
+                                //now verify the token...
+                                try {
+                                    let outcome = jwt.verify(rawidtoken,jwkToPem(key),{algorithms:[alg]})
+                                    //throws an exception if fails validation, so must be OK..
+                                    resolve(idtoken)
+                                } catch (ex) {
+                                    console.log('error verifying jwt:',ex)
+                                    reject("Id token failed validation")
+                                }
+
+                               // console.log('keys', keys);
 
 
+                            } else {
+                                req.session.error = {err: "couldn't find " + url + " (from " + config.clientIdConfig + ")"};
+                                res.redirect('smartError.html')
+                            }
+                        })
+
+
+                    } else {
+                        reject("Able to retrieve keys from "+configUrl +", but there was no 'jwks_uri' property" )
+                    }
+
+                } else {
+                    reject("Can't get the keys from "+configUrl )
+                }
+            })
+        } else {
+            reject('No issuer property in the id token')
+        }
+
+
+        //resolve();
+        //return;
+        //how get the keys to decrypt the id token. I'm not yet sure this is the right place...
+        //in particular, this means that teh server MUST support the whole key lookup thing...
 
     })
+
 }
+
 
 //retrieve the server endpoints from the capability statement
 let getSMARTEndpoints =(config,capstmt) => {

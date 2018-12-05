@@ -1,0 +1,117 @@
+<div class="modal-header">
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <h3 class="modal-title">Edit SMART server list</h3>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            <div class="pull-right">
+                <button ng-show="dirty" class="btn btn-primary pull-right" ng-click="save()">Save</button>
+                <button class="btn btn-link pull-right" ng-click="$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class = 'col-sm-3'>
+            <div class="row">
+                <div class="col-sm-8">
+                    <strong>Current Sets</strong>
+                </div>
+                <div class="col-sm-3">
+                    <div class="btn btn-link" ng-click="add()">Add</div>
+                </div>
+
+            </div>
+
+
+            <div class="list-group">
+                <div ng-class="{'list-group-item':true, active:svr.name == selectedServer.name}"
+                     style="cursor: pointer"
+                     ng-click="selectSvr(svr)" ng-repeat="svr in servers">
+                    {{svr.name}}
+                </div>
+            </div>
+        </div>
+        <div class = 'col-sm-9'>
+
+
+<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+
+            <button ng-show="selectedServer" ng-click="remove()" class="pull-right clickable btn btn-link">Delete</button>
+
+            <uib-tabset>
+
+
+
+                <uib-tab heading="Form (editable)">
+                    <form ng-show="selectedServer">
+                        <div class="form-group">
+                            <label>Name</label>
+
+                            <input type="text" class="form-control" ng-model="selectedServer.name" placeholder="Enter name" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">A unique name to identify this set</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.description" placeholder="Enter name" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">A more detailed description</small>
+                        </div>
+
+                        <div class="form-check">
+                            <label>BaseUrl</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.baseUrl" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">The unique id assigned to this app by the auth server</small>
+                        </div>
+                        <br/>
+                        <div class="form-check">
+                            <label>Callback</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.callback" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">The callback URL after Authorization. Should always be {{callBackUrl}} (or the authentication process will fail)</small>
+                        </div>
+                        <br/>
+                        <div class="form-check">
+                            <label>clientId</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.clientId" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">The unique id assigned to this app by the auth server</small>
+                        </div>
+                        <br/>
+                        <div class="form-check">
+                            <label>Secret</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.secret" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">The unique secret assigned to this app by the auth server</small>
+                        </div>
+                        <br/>
+                       <!-- <div class="form-check">
+                            <label>clientIdConfig</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.clientIdConfig"/>
+                            <small class="form-text text-muted pull-right" ></small>
+                        </div>
+                        <br/> -->
+                        <div class="form-check">
+                            <label>Default scope</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.defaultScope" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">The default scope to use</small>
+                        </div>
+                    </form>
+                </uib-tab>
+
+
+                <uib-tab heading="Json">
+                    <pre ng-show="selectedServer">{{selectedServer | json}}</pre>
+                </uib-tab>
+
+
+            </uib-tabset>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+
+</div>
