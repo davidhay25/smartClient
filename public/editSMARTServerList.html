@@ -7,7 +7,7 @@
 
         <div class="col-md-6 col-sm-6">
             <div class="pull-right">
-                <button ng-show="dirty" class="btn btn-primary pull-right" ng-click="save()">Save</button>
+                <button ng-show="dirty" class="btn btn-primary pull-right" ng-click="save()">Update list</button>
                 <button class="btn btn-link pull-right" ng-click="$dismiss()">Cancel</button>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
 
 
-                <uib-tab heading="Form (editable)">
+                <uib-tab heading="SMART configuration (editable)">
                     <form ng-show="selectedServer">
                         <div class="form-group">
                             <label>Name</label>
@@ -65,7 +65,7 @@
                         <div class="form-check">
                             <label>BaseUrl</label>
                             <input type="text" class="form-control" ng-model="selectedServer.baseUrl" ng-change="change()"/>
-                            <small class="form-text text-muted pull-right">The unique id assigned to this app by the auth server</small>
+                            <small class="form-text text-muted pull-right">The url to the FHIR server root. Include the trailing /</small>
                         </div>
                         <br/>
                         <div class="form-check">
@@ -98,6 +98,40 @@
                             <small class="form-text text-muted pull-right">The default scope to use</small>
                         </div>
                     </form>
+                </uib-tab>
+
+                <uib-tab heading="User details & notes (editable)">
+                    <form ng-show="selectedServer">
+                        <div class="form-group">
+                            <label>User name</label>
+
+                            <input type="text" class="form-control" ng-model="selectedServer.userName" placeholder="Enter user name" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">The username you need to log into the server</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="text" class="form-control" ng-model="selectedServer.password" placeholder="Enter password" ng-change="change()"/>
+                            <small class="form-text text-muted pull-right">Your password</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control" ng-model="selectedServer.notes" placeholder="Any notes" ng-change="change()"></textarea>
+
+                            <small class="form-text text-muted pull-right">Any notes about this server</small>
+                        </div>
+                    </form>
+
+                    <p>
+                        <em>
+                            Generally, you wouldn't save login details in a config file. This is provided as a convenient place to store them only -
+                            the details aren't sent to the server and you'll need to enter them in the login screen in the usual way. The
+                            details are stored in your browser cache - but don't use this for real data!
+                            <br/><br/>
+                            You may want to consider putting a 'hint' in the password field rather than the actual password
+                        </em>
+                    </p>
                 </uib-tab>
 
 

@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0a0d34d-5ae3-4e2c-a640-cab091f65fef" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/config/smartServers.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/smartServers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myModules/logger.js" beforeDir="false" afterPath="$PROJECT_DIR$/myModules/logger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myModules/smartModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/myModules/smartModule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/editSMARTServerList.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/editSMARTServerList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mainCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/mainCtrl.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -31,9 +36,9 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="html" value="9" />
+          <entry key="html" value="10" />
           <entry key="js" value="12" />
-          <entry key="json" value="5" />
+          <entry key="json" value="6" />
           <entry key="key" value="2" />
           <entry key="pem" value="2" />
         </counts>
@@ -41,8 +46,8 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Git file" value="1" />
-          <entry key="HTML" value="9" />
-          <entry key="JSON" value="5" />
+          <entry key="HTML" value="10" />
+          <entry key="JSON" value="6" />
           <entry key="JavaScript" value="12" />
           <entry key="PLAIN_TEXT" value="4" />
         </counts>
@@ -50,17 +55,17 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="5" />
-          <entry key="html" value="2484" />
-          <entry key="js" value="9950" />
+          <entry key="html" value="3399" />
+          <entry key="js" value="10186" />
           <entry key="json" value="222" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Git file" value="5" />
-          <entry key="HTML" value="2484" />
+          <entry key="HTML" value="3399" />
           <entry key="JSON" value="222" />
-          <entry key="JavaScript" value="9950" />
+          <entry key="JavaScript" value="10186" />
         </counts>
       </usages-collector>
     </session>
@@ -82,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myModules/smartModule.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="232" column="34" selection-start-line="232" selection-start-column="34" selection-end-line="232" selection-end-column="34" />
+            <state relative-caret-position="584">
+              <caret line="177" selection-start-line="177" selection-end-line="177" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#3130#3268#0" />
@@ -98,7 +103,6 @@
                 <element signature="e#5212#5604#0" />
                 <element signature="e#5293#5398#0" />
                 <element signature="e#6148#6335#0" />
-                <element signature="e#6714#6891#0" />
                 <element signature="e#11997#12009#0" />
                 <element signature="e#12337#13204#0" />
                 <element signature="e#12439#13166#0" />
@@ -115,13 +119,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
-              <caret line="108" column="58" selection-start-line="108" selection-start-column="46" selection-end-line="108" selection-end-column="58" />
+            <state relative-caret-position="223">
+              <caret line="118" column="66" selection-start-line="118" selection-start-column="66" selection-end-line="118" selection-end-column="66" />
               <folding>
                 <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#span#0;n#a#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#script#0;n#body#0;n#html#0;n#!!top" />
               </folding>
             </state>
@@ -129,10 +135,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/editSMARTServerList.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="395">
+              <caret line="119" column="113" selection-start-line="119" selection-start-column="113" selection-end-line="119" selection-end-column="113" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#uib-tab#0;n#uib-tabset#0;n#div#1;n#div#0;n#div#1;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/smartServers.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="105" selection-start-line="18" selection-start-column="105" selection-end-line="18" selection-end-column="105" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myModules/logger.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+            <state relative-caret-position="75">
+              <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -161,13 +189,39 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/mainCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="34" column="67" selection-start-line="34" selection-start-column="67" selection-end-line="34" selection-end-column="67" />
+            <state relative-caret-position="385">
+              <caret line="120" column="58" selection-start-line="120" selection-start-column="58" selection-end-line="120" selection-end-column="58" />
               <folding>
-                <element signature="e#1616#4313#0" />
+                <element signature="e#130#243#0" />
+                <element signature="e#671#789#0" />
+                <element signature="e#932#1368#0" />
+                <element signature="e#1017#1241#0" />
+                <element signature="e#1257#1335#0" />
+                <element signature="e#1374#1505#0" />
+                <element signature="e#1649#3984#0" />
+                <element signature="e#1838#3612#0" />
+                <element signature="e#2129#2220#0" />
+                <element signature="e#2332#2893#0" />
+                <element signature="e#2451#2657#0" />
+                <element signature="e#2534#2623#0" />
+                <element signature="e#2706#2863#0" />
+                <element signature="e#2950#3034#0" />
+                <element signature="e#3136#3441#0" />
+                <element signature="e#3496#3589#0" />
+                <element signature="e#3643#3966#0" />
+                <element signature="e#3690#3814#0" />
+                <element signature="e#3863#3944#0" />
+                <element signature="e#4355#5578#0" />
+                <element signature="e#4431#4553#0" />
+                <element signature="e#4777#5445#0" />
+                <element signature="e#5315#5378#0" />
+                <element signature="e#5481#5545#0" />
+                <element signature="e#5628#5768#0" />
+                <element signature="e#5652#5767#0" />
+                <element signature="e#5688#5756#0" />
               </folding>
             </state>
           </provider>
@@ -224,17 +278,17 @@
         <option value="$PROJECT_DIR$/myModules/smart.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/public/sharedWorker.js" />
-        <option value="$PROJECT_DIR$/config/smartServers.json" />
-        <option value="$PROJECT_DIR$/public/editSMARTServerList.html" />
         <option value="$PROJECT_DIR$/config/links.json" />
-        <option value="$PROJECT_DIR$/public/main.html" />
-        <option value="$PROJECT_DIR$/myModules/logger.js" />
         <option value="$PROJECT_DIR$/myModules/smartClient.js" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/query.html" />
         <option value="$PROJECT_DIR$/public/queryCtl.js" />
         <option value="$PROJECT_DIR$/myModules/smartModule.js" />
+        <option value="$PROJECT_DIR$/myModules/logger.js" />
         <option value="$PROJECT_DIR$/public/mainCtrl.js" />
+        <option value="$PROJECT_DIR$/public/editSMARTServerList.html" />
+        <option value="$PROJECT_DIR$/config/smartServers.json" />
+        <option value="$PROJECT_DIR$/public/main.html" />
       </list>
     </option>
   </component>
@@ -255,8 +309,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="129" />
-    <option name="y" value="79" />
+    <option name="x" value="59" />
+    <option name="y" value="127" />
     <option name="width" value="1448" />
     <option name="height" value="872" />
   </component>
@@ -341,20 +395,20 @@
       <workItem from="1543598576862" duration="32637000" />
       <workItem from="1543728425930" duration="10850000" />
       <workItem from="1543816556903" duration="20347000" />
-      <workItem from="1544063186962" duration="10824000" />
+      <workItem from="1544063186962" duration="14781000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74658000" />
+    <option name="totallyTimeSpent" value="78615000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="129" y="79" width="1448" height="872" extended-state="0" />
+    <frame x="59" y="127" width="1448" height="872" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.201822" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16748424" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -362,7 +416,7 @@
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.36923078" />
+      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.22948718" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -435,31 +489,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/smartServers.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="54" lean-forward="true" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/editSMARTServerList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="96" column="127" selection-start-line="96" selection-start-column="127" selection-end-line="96" selection-end-column="127" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/links.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myModules/logger.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -495,8 +528,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myModules/smartModule.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="232" column="34" selection-start-line="232" selection-start-column="34" selection-end-line="232" selection-end-column="34" />
+        <state relative-caret-position="584">
+          <caret line="177" selection-start-line="177" selection-end-line="177" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#3130#3268#0" />
@@ -511,7 +544,6 @@
             <element signature="e#5212#5604#0" />
             <element signature="e#5293#5398#0" />
             <element signature="e#6148#6335#0" />
-            <element signature="e#6714#6891#0" />
             <element signature="e#11997#12009#0" />
             <element signature="e#12337#13204#0" />
             <element signature="e#12439#13166#0" />
@@ -527,23 +559,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/main.html">
+    <entry file="file://$PROJECT_DIR$/myModules/logger.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="108" column="58" selection-start-line="108" selection-start-column="46" selection-end-line="108" selection-end-column="58" />
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#script#0;n#body#0;n#html#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/mainCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="34" column="67" selection-start-line="34" selection-start-column="67" selection-end-line="34" selection-end-column="67" />
+        <state relative-caret-position="385">
+          <caret line="120" column="58" selection-start-line="120" selection-start-column="58" selection-end-line="120" selection-end-column="58" />
           <folding>
-            <element signature="e#1616#4313#0" />
+            <element signature="e#130#243#0" />
+            <element signature="e#671#789#0" />
+            <element signature="e#932#1368#0" />
+            <element signature="e#1017#1241#0" />
+            <element signature="e#1257#1335#0" />
+            <element signature="e#1374#1505#0" />
+            <element signature="e#1649#3984#0" />
+            <element signature="e#1838#3612#0" />
+            <element signature="e#2129#2220#0" />
+            <element signature="e#2332#2893#0" />
+            <element signature="e#2451#2657#0" />
+            <element signature="e#2534#2623#0" />
+            <element signature="e#2706#2863#0" />
+            <element signature="e#2950#3034#0" />
+            <element signature="e#3136#3441#0" />
+            <element signature="e#3496#3589#0" />
+            <element signature="e#3643#3966#0" />
+            <element signature="e#3690#3814#0" />
+            <element signature="e#3863#3944#0" />
+            <element signature="e#4355#5578#0" />
+            <element signature="e#4431#4553#0" />
+            <element signature="e#4777#5445#0" />
+            <element signature="e#5315#5378#0" />
+            <element signature="e#5481#5545#0" />
+            <element signature="e#5628#5768#0" />
+            <element signature="e#5652#5767#0" />
+            <element signature="e#5688#5756#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/editSMARTServerList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="119" column="113" selection-start-line="119" selection-start-column="113" selection-end-line="119" selection-end-column="113" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#uib-tab#0;n#uib-tabset#0;n#div#1;n#div#0;n#div#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/smartServers.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="105" selection-start-line="18" selection-start-column="105" selection-end-line="18" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="118" column="66" selection-start-line="118" selection-start-column="66" selection-end-line="118" selection-end-column="66" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#span#0;n#a#0;n#li#0;n#ul#0;n#div#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#body#0;n#html#0;n#!!top" />
           </folding>
         </state>
       </provider>

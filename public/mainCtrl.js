@@ -50,7 +50,11 @@ angular.module("smartTester")
            // $scope.selectServer($scope.input.server);       //set the default scope at startup
 
             //edit the list of smart servers configured in this browser
-            $scope.edit = function() {
+            $scope.editList = function() {
+
+                let currentServerName = $scope.input.server.name;
+
+
                 $uibModal.open({
                     templateUrl: 'editSMARTServerList.html',
                     size : 'lg',
@@ -108,9 +112,19 @@ angular.module("smartTester")
                     function(lst) {
                         //if the list has been updated
 
-                        $localStorage.smartConfig = lst;
-                        $scope.servers = lst
-                        $scope.input.server = $scope.servers[0]
+                        $localStorage.smartConfig = lst;    //update the list in the browser cache
+                        $scope.servers = lst                //and locally...
+
+                        //find and update the current server
+                        $scope.servers.forEach(function (svr) {
+                            if (svr.name == currentServerName) {
+                                $scope.input.server = svr;
+                            }
+
+                        })
+
+
+                        //$scope.input.server = $scope.servers[0]
 
                     }
 

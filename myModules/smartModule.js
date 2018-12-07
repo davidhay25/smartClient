@@ -175,11 +175,7 @@ let getAccessToken = (vo) => {
 
                     console.log('at',token)
                     console.log('-----------');
-/*
-                    var tst = jwt.sign({ foo: 'bar' }, 'shhhhh')
-                    console.log(tst);
-                    console.log(jwt.decode(tst))
-                    */
+
 
                     logger.log(vo.wsConnection,'successful access token request','app');
                    // logger.log(vo.wsConnection,body,'app');
@@ -205,23 +201,24 @@ let getAccessToken = (vo) => {
                         logger.log(vo.wsConnection,'access token is a JWT token','app');
 
 
-                    } catch (ex) {logger.log(vo.wsConnection,'access token is NOT a JWT token','app');
+                    } catch (ex) {
+                        logger.log(vo.wsConnection,'access token is NOT a JWT token','app');
                         console.log('Access token is not a JWT token')
                     }
 
-                    console.log('-----------',access_token);
+                    //console.log('-----------',access_token);
 
                     //an id token was returned
                     let id_token = token['id_token'];
                     if (id_token) {
-                        logger.log(vo.wsConnection,'An id token was returned ','app');
+                        logger.log(vo.wsConnection,'An id token was returned. Validating... ','app');
 
                         //validates that the idtoken is correct and returns the decoded token...
                         validateIDToken(id_token).then(
                             function(token){
                                 vo.session.serverData.idToken = token;
                                 console.log('it',token,vo.session.serverData.idToken)
-                                logger.log(vo.wsConnection,'Token is valid ','app');
+                                logger.log(vo.wsConnection,'Id token is valid ','app');
                                 resolve();
                             },
                             function(err){
@@ -232,7 +229,6 @@ let getAccessToken = (vo) => {
                     } else {
                         resolve();
                     }
-
                 } else {
                     logger.log(vo.wsConnection,'error making access token request:'+response.statusCode,'app');
                 }
@@ -243,7 +239,6 @@ let getAccessToken = (vo) => {
                 logger.log(vo.wsConnection,'error making access token request','app');
                 reject(body)
                 vo.session.error = body;
-
             }
         })
     })
