@@ -32,7 +32,7 @@ angular.module("smartTester")
                     function(data) {
                         $localStorage.smartConfig = data.data.servers
                         //$scope.smartServers = data.data.servers;
-                        $scope.input.server = $scope.servers[0]
+                        $scope.input.server = $localStorage.smartConfig[0]
                         $scope.selectServer($scope.input.server);       //set the default scope at startup
 
                     }, function(err) {
