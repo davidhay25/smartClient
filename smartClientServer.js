@@ -23,10 +23,35 @@ app.use(sessionParser);
 
 //enable SSL - https://aghassi.github.io/ssl-using-express-4/
 const https = require('https');
+
+//try to load the SSL keys from the 'production' location
+let privKey,cert,passphrase
+try {
+    privKey = fs.readFileSync('/etc/letsencrypt/live/clinfhir.com/privkey.pem');
+    cert = fs.readFileSync('/etc/letsencrypt/live/clinfhir.com/cert.pem');
+    console.log('Able to read production SSL keys')
+} catch (ex) {
+    privKey = fs.readFileSync('./keys/key.pem');
+    cert = fs.readFileSync('./keys/cert.pem');
+    passphrase = 'ne11ieh@y'
+    console.log('using self signed SSL keys')
+}
+
+/*
 const sslOptions = {
     key: fs.readFileSync('./keys/key.pem'),
     cert: fs.readFileSync('./keys/cert.pem'),
     passphrase:'ne11ieh@y'
+};
+
+*/
+
+
+
+const sslOptions = {
+    key: privKey,
+    cert: cert,
+    passphrase:passphrase
 };
 
 //create the https server...
