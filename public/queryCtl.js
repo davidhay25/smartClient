@@ -16,11 +16,12 @@ angular.module("queryApp")
                     $scope.capStmt = data.data.capStmt
 
                     $scope.idToken = data.data.idToken;
-                    $scope.fullToken = data.data.fullToken;
+                    $scope.fullToken = data.data.authServerResponse;
+                    $scope.accessToken = data.data.accessToken;
                     $scope.config = data.data.config;
                     $scope.atDecoded = data.data.decodedAccessToken;
 
-                    console.log($scope.config)
+
 
                 },function(err) {
                     console.log(err)

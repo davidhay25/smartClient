@@ -1,29 +1,36 @@
+/*
+* The module that acts as a SMART client to the external SMART protected server.
+* It is a nodejs module and runs on the local server (as it supports the confidential profile)
+* */
+
 const logger = require('./logger');
 const request = require('request');
 const jwt  = require('jsonwebtoken');   //https://www.npmjs.com/package/jsonwebtoken
 const jwkToPem = require("jwk-to-pem"); //https://www.npmjs.com/package/jwk-to-pem
 
+
+//called by server.js (the local server)
 let init = (app) => {
 
-
-
-//The first step in authentication. The browser will load this 'page' and receive a redirect to the login page
+    //The first step in authentication. The browser will navigate to this 'page' and receive a redirect to the login page
+    //in a real SMART client, the credentials would be on the server already in a config file of some sort
     app.get('/appAuth', function(req, res)  {
 
-        logger.log(req.wsConnection,'Auth called by local server. Scope='+ req.query.scope);
+        let config = req.session.config;    //the config set in /setup when this login started...
+//console.log(config)
+        logger.log(req.wsConnection,'Redirecting to auth server. Scope='+ req.query.scope);
+
         //the smart end points were parsed from the capstmt in the /setup handler
         let smartEndpoints = req.session['smartEndpoints']
 
         //save the requested scope...
-        req.session["scope"] = req.query.scope || 'launch/patient';
-
-        //req.session["page"] = "smartQuery.html";
+        req.session["scope"] = req.query.scope || config.defaultScope;
 
         //generate the uri to re-direct the browser to. This will often be the login page for the system
         var authorizationUri = smartEndpoints.authorize;
-        //Some servers don't have https in the extension (an error)
-        authorizationUri = authorizationUri.replace('http://','https://')
 
+        //Some servers don't have https in the url (an error)
+        authorizationUri = authorizationUri.replace('http://','https://')
         authorizationUri += "?redirect_uri=" + encodeURIComponent(config.callback);
         authorizationUri += "&response_type=code";
         authorizationUri += "&scope=" + encodeURIComponent(req.session["scope"]);
@@ -31,31 +38,33 @@ let init = (app) => {
         authorizationUri += "&aud="+ config.baseUrl;
         authorizationUri += "&client_id="+config.clientId;
 
-        logger.log(req.wsConnection,'Redirecting to '+ decodeURIComponent(authorizationUri),'app');
+        logger.log(req.wsConnection,'Url: '+ decodeURIComponent(authorizationUri),'app');
         res.redirect(authorizationUri);
 
     });
 
-
-//after authentication the browser will be redirected by the auth server to this endpoint
+    //after authentication the browser will be redirected by the auth server to this endpoint
     app.get('/callback', function(req, res) {
         var code = req.query.code;
+        console.log(req.query)
         logger.log(req.wsConnection,'callback invoked. code='+code,'app');
 
-        //If authentication was successful, the Authorization Server will return a code which can be exchanged for an
-        //access token. If there is no code, then authorization failed, and a redirect to an error page is returned.
 
+
+        //If authentication was successful, the Authorization Server will return a code which can be exchanged for an
+        //access token. If there is no code, then authorization failed, and a redirect to an error page is made.
         if (! code) {
-            //no code, redirect to error
+            logger.log(req.wsConnection,'error reported from server. Details in the iframe')
             req.session.error = req.query;  //any error message will be in the querystring...
             res.redirect('error.html?msg='+JSON.stringify(req.query) )
             return;
         }
 
         //request an access token from the Auth server.
-        let smartEndpoints = req.session['smartEndpoints']; //retrieve the configuration from the session. This was set in /auth.
+        let smartEndpoints = req.session['smartEndpoints']; //retrieve the configuration from the session. This was set in /appAuth.
+        let config = req.session.config;    //the config set in /setup when this login started...
 
-        var vo = {}
+        let vo = {};    //info to pass into the 'getAccessToken' function...
         vo.code = code;
         vo.url = smartEndpoints.token;
         vo.callback = config.callback;
@@ -77,13 +86,17 @@ let init = (app) => {
         )
     });
 
-
-
     //make a FHIR call. the remainder of the query beyond '/orionfhir/*' is the actual query to be sent to the server
     app.get('/sendquery/*',function(req,res){
 
         let fhirQuery = req.originalUrl.substr(11); //strip off /sendquery
         let access_token = req.session['accessToken'];
+
+        if (!access_token) {
+            logger.log(req.wsConnection,"The access token is null - can't proceed",'app');
+            res.send({error:'Empty access token'},500)
+        }
+
         let config = req.session["config"];     //retrieve the configuration from the session...
 
         let url;
@@ -162,45 +175,64 @@ let getAccessToken = (vo) => {
 
                     console.log('at',token)
                     console.log('-----------');
+/*
+                    var tst = jwt.sign({ foo: 'bar' }, 'shhhhh')
+                    console.log(tst);
+                    console.log(jwt.decode(tst))
+                    */
+
                     logger.log(vo.wsConnection,'successful access token request','app');
+                   // logger.log(vo.wsConnection,body,'app');
+                    vo.session['accessToken'] = token['access_token'];  //used when making server queries...
 
-                    vo.session['accessToken'] = token['access_token']
+
+                    vo.session.serverData['authServerResponse'] = token
                     vo.session.serverData.scope = token.scope;
-                    vo.session.serverData.fullToken = token;
-                    vo.session.serverData.config = vo.session["config"];
+                    //vo.session.serverData.fullToken = token;
+                    //vo.session.serverData.config = vo.session["config"];
+                    vo.session.serverData.accessToken = token['access_token']
 
-                    //assume the auth token is a jwt token.
+
+                    let access_token = token['access_token'];
+                    //logger.log(vo.wsConnection,access_token,'app');
+                    //see if the auth token is a jwt token.
                     try {
-                        var access_token = jwt.decode(token['access_token'], {complete: true})
-                        console.log(access_token)
-                        vo.session.serverData.decodedAccessToken = access_token;
+                        //let decodedToken = jwt.verify(access_token, {complete: true})
+                        let decodedToken = jwt.decode(access_token, {complete: true})
+                        console.log('dat',decodedToken)
+                        console.log('-----------');
+                        vo.session.serverData.decodedAccessToken = decodedToken;
                         logger.log(vo.wsConnection,'access token is a JWT token','app');
 
-                    } catch (ex) {
+
+                    } catch (ex) {logger.log(vo.wsConnection,'access token is NOT a JWT token','app');
                         console.log('Access token is not a JWT token')
                     }
 
                     console.log('-----------',access_token);
 
-
-                    console.log(access_token.payload)
                     //an id token was returned
                     let id_token = token['id_token'];
                     if (id_token) {
                         logger.log(vo.wsConnection,'An id token was returned ','app');
 
+                        //validates that the idtoken is correct and returns the decoded token...
                         validateIDToken(id_token).then(
-                            function(id_token){
-                                vo.session.serverData['idToken'] = id_token;
-                                console.log('it',id_token)
+                            function(token){
+                                vo.session.serverData.idToken = token;
+                                console.log('it',token,vo.session.serverData.idToken)
                                 logger.log(vo.wsConnection,'Token is valid ','app');
+                                resolve();
                             },
                             function(err){
                                 logger.log(vo.wsConnection,'Token failed validation: '+err,'app');
+                                resolve();      //still resolve the promise
                             }
                         );
+                    } else {
+                        resolve();
                     }
-                    resolve();
+
                 } else {
                     logger.log(vo.wsConnection,'error making access token request:'+response.statusCode,'app');
                 }
@@ -217,9 +249,18 @@ let getAccessToken = (vo) => {
     })
 };
 
+
 let validateIDToken = (rawidtoken) => {
-    let idtoken = jwt.decode(rawidtoken, {complete: true});     //todo look for errors...
+
+
     return new Promise(function(resolve,reject) {
+        let idtoken;
+        try {
+            idtoken = jwt.decode(rawidtoken, {complete: true});     //todo look for errors...
+        } catch (ex) {
+            reject("Id token was not a valid JWT token")
+            return;
+        }
 
         let issuer = idtoken.payload.iss || token.payload.issuer;      //the issuer of the token (the spec says 'issuer' but I think it means 'iss'...
         if (issuer) {
@@ -227,15 +268,10 @@ let validateIDToken = (rawidtoken) => {
             request.get(configUrl, function (err, resp, body) {
                 if (!err && body) {
                     var json = JSON.parse(body)
-                    console.log(body)
-                    console.log(json['jwks_uri'])
                     if (json['jwks_uri']) {
                         var url = json['jwks_uri'];
                         request.get(url, function (err, resp, body) {
                             if (!err && body) {
-
-                                //let keys = JSON.parse(body);        //should be the decryption keys...
-
                                 let webKey = JSON.parse(body);        //should be the decryption keys...
 
                                 //just grab the first key...
@@ -243,22 +279,22 @@ let validateIDToken = (rawidtoken) => {
 
                                 let alg = idtoken.header.alg;   //signing algorithm used
 
-                                //now verify the token...
+                                //now verify the token. Returns the decoded token if valid..
                                 try {
                                     let outcome = jwt.verify(rawidtoken,jwkToPem(key),{algorithms:[alg]})
+                                    console.log('out',outcome)
                                     //throws an exception if fails validation, so must be OK..
-                                    resolve(idtoken)
+                                    resolve(outcome)
                                 } catch (ex) {
                                     console.log('error verifying jwt:',ex)
                                     reject("Id token failed validation")
                                 }
 
-                               // console.log('keys', keys);
-
 
                             } else {
-                                req.session.error = {err: "couldn't find " + url + " (from " + config.clientIdConfig + ")"};
-                                res.redirect('smartError.html')
+                                reject("couldn't find " + url + " (from " + configUrl + ")")
+                               // req.session.error = {err: "couldn't find " + url + " (from " + config.clientIdConfig + ")"};
+                                //res.redirect('smartError.html')
                             }
                         })
 

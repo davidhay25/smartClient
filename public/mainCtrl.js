@@ -22,6 +22,10 @@ angular.module("smartTester")
                 $scope.$digest();
             };
 
+            $scope.selectServer = function(svr) {
+                $scope.input.scope = svr.defaultScope;
+            };
+
             //store the configuration in local storage. Initialize from the pre-defined set...
             if (! $localStorage.smartConfig) {
                 $http.get('/smartConfig').then(
@@ -37,6 +41,8 @@ angular.module("smartTester")
                 $scope.servers = $localStorage.smartConfig;
                 $scope.input.server = $scope.servers[0]
             }
+
+            $scope.selectServer($scope.input.server);       //set the default scope at startup
 
             //edit the list of smart servers configured in this browser
             $scope.edit = function() {
@@ -108,7 +114,10 @@ angular.module("smartTester")
             };
 
 
+            //initiate the login handshake...
             $scope.start = function() {
+
+                $scope.authEndpoint = "about:blank";
 
                 if ($scope.input.server.callback !== $scope.callBackUrl) {
                     alert('The callback url must be '+ $scope.callBackUrl);
@@ -116,15 +125,15 @@ angular.module("smartTester")
                 }
 
                 $scope.messages.length = 0;
-                $scope.messages.push({msg:"Initiating login...",src:'server'});
+                $scope.messages.push({msg:"Initiating login by sending config to the local server...",src:'server'});
                 $http.post('/setup',$scope.input.server).then(
                     function(data) {
                         console.log(data.data)
-                        let url = '/appAuth?scope=' + $scope.input.server.defaultScope;
+                        let url = '/appAuth?scope=' + $scope.input.scope;
                         let smartEndpoints = data.data;     //setup will return the smart endpoints parsed from the capStmt
                         //direct the iframe to the auth endpoint in the app server. This will re-direct to the smart server endpoint...
                         //the smart endpoints will have also been saved in the app server session
-                        $scope.messages.push({msg:'Redirecting to auth server'});
+                       // $scope.messages.push({msg:'Redirecting to auth server'});
                         $scope.authEndpoint = url//;config.authorize;
                     },
                     function(err) {

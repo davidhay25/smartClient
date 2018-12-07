@@ -92,7 +92,7 @@
 
     <uib-tabset>
 
-        <uib-tab heading="Ad-hoc Query">
+        <uib-tab heading="Query">
             <br/>
 
             <div class="row">
@@ -109,7 +109,7 @@
 
             <pre ng-show="resultsBundle">{{resultsBundle | json}}</pre>
 
-            <pre ng-show="error"><div>class="alert alert-danger">{{error | json}}</div></pre>
+            <pre ng-show="error"><div class="alert alert-danger">{{error | json}}</div></pre>
 
 
         </uib-tab>
@@ -137,9 +137,14 @@
             -->
             <h4>Server response to request for Access Token</h4>
             <pre>{{fullToken | json}}</pre>
-            <h4>Access token</h4>
+            <h4>Access token</h4><!--
+            <div>{{accessToken}}</div>
+-->
+            <div ng-show="atDecoded">
+                <h5>Decoded contents (was a JWT token)</h5>
+                <pre>{{atDecoded | json}}</pre>
+            </div>
 
-            <pre>{{atDecoded | json}}</pre>
 
             <h4>Id Token</h4>
             <pre>{{idToken | json}}</pre>
