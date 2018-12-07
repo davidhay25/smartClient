@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0a0d34d-5ae3-4e2c-a640-cab091f65fef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/links.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myModules/logger.js" beforeDir="false" afterPath="$PROJECT_DIR$/myModules/logger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myModules/smartClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/myModules/smartModule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mainCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/mainCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/query.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/query.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/queryCtl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/queryCtl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -59,7 +51,7 @@
         <counts>
           <entry key="gitignore" value="5" />
           <entry key="html" value="2484" />
-          <entry key="js" value="9945" />
+          <entry key="js" value="9949" />
           <entry key="json" value="222" />
         </counts>
       </usages-collector>
@@ -68,7 +60,7 @@
           <entry key="Git file" value="5" />
           <entry key="HTML" value="2484" />
           <entry key="JSON" value="222" />
-          <entry key="JavaScript" value="9945" />
+          <entry key="JavaScript" value="9949" />
         </counts>
       </usages-collector>
     </session>
@@ -87,7 +79,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myModules/smartModule.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
@@ -169,11 +161,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/mainCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="135" column="25" selection-start-line="135" selection-start-column="25" selection-end-line="135" selection-end-column="25" />
+            <state relative-caret-position="377">
+              <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
               <folding>
                 <element signature="e#1616#4313#0" />
               </folding>
@@ -218,6 +210,7 @@
       <find>vo.session.serverData</find>
       <find>serverData</find>
       <find>idToken</find>
+      <find>selectServer</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -238,10 +231,10 @@
         <option value="$PROJECT_DIR$/myModules/logger.js" />
         <option value="$PROJECT_DIR$/myModules/smartClient.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/public/mainCtrl.js" />
         <option value="$PROJECT_DIR$/public/query.html" />
         <option value="$PROJECT_DIR$/public/queryCtl.js" />
         <option value="$PROJECT_DIR$/myModules/smartModule.js" />
+        <option value="$PROJECT_DIR$/public/mainCtrl.js" />
       </list>
     </option>
   </component>
@@ -348,15 +341,16 @@
       <workItem from="1543598576862" duration="32637000" />
       <workItem from="1543728425930" duration="10850000" />
       <workItem from="1543816556903" duration="20347000" />
-      <workItem from="1544063186962" duration="10356000" />
+      <workItem from="1544063186962" duration="10440000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74190000" />
+    <option name="totallyTimeSpent" value="74274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="129" y="79" width="1448" height="872" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
@@ -389,7 +383,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/mainCtrl.js</url>
-          <line>47</line>
+          <line>51</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -480,16 +474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/mainCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="135" column="25" selection-start-line="135" selection-start-column="25" selection-end-line="135" selection-end-column="25" />
-          <folding>
-            <element signature="e#1616#4313#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/query.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
@@ -550,6 +534,16 @@
             <element signature="e#12845#12953#0" />
             <element signature="e#12978#13092#0" />
             <element signature="e#13177#13202#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/mainCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+          <folding>
+            <element signature="e#1616#4313#0" />
           </folding>
         </state>
       </provider>

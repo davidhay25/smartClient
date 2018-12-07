@@ -33,6 +33,8 @@ angular.module("smartTester")
                         $localStorage.smartConfig = data.data.servers
                         //$scope.smartServers = data.data.servers;
                         $scope.input.server = $scope.servers[0]
+                        $scope.selectServer($scope.input.server);       //set the default scope at startup
+
                     }, function(err) {
                         alert('Unable to load config')
                     }
@@ -40,9 +42,11 @@ angular.module("smartTester")
             } else {
                 $scope.servers = $localStorage.smartConfig;
                 $scope.input.server = $scope.servers[0]
+                $scope.selectServer($scope.input.server);       //set the default scope at startup
+
             }
 
-            $scope.selectServer($scope.input.server);       //set the default scope at startup
+           // $scope.selectServer($scope.input.server);       //set the default scope at startup
 
             //edit the list of smart servers configured in this browser
             $scope.edit = function() {
