@@ -13,11 +13,10 @@ const jwkToPem = require("jwk-to-pem"); //https://www.npmjs.com/package/jwk-to-p
 let init = (app) => {
 
     //The first step in authentication. The browser will navigate to this 'page' and receive a redirect to the login page
-    //in a real SMART client, the credentials would be on the server already in a config file of some sort
+    //In a real SMART client, the credentials would be on the server already in a config file of some sort
     app.get('/appAuth', function(req, res)  {
 
         let config = req.session.config;    //the config set in /setup when this login started...
-//console.log(config)
         logger.log(req.wsConnection,'Redirecting to auth server. Scope='+ req.query.scope);
 
         //the smart end points were parsed from the capstmt in the /setup handler

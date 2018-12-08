@@ -10,20 +10,12 @@
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
     <script src="ui-bootstrap-tpls-2.0.1.min.js"></script>
 
-    <!--
-     <script src="js/libs/jquery-1.9.0.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="css/vis.min.css"/>
-
-    <script src="js/libs/moment.min.js"></script>
- <link rel="stylesheet" type="text/css" href="css/main.css"/>
-
-    <link rel="stylesheet" type="text/css" href="css/jsTreeStyle.css"/>
-    <link rel="stylesheet" type="text/css" href="css/jsTreeThemes/proton/style.css"/>
-
-    <script src="js/libs/angular-sanitize.js"></script>
-
-    -->
+   <style>
+       .myScroll {
+           height: 600px;
+           overflow-y: scroll;
+       }
+   </style>
 
     <script>
         angular.module("queryApp",['ui.bootstrap']).config(function($locationProvider) {
@@ -97,9 +89,9 @@
 
             <div class="row">
                 <div class="col-sm-1 col-md-1">
-                    Query
+                    <strong>Query</strong>
                 </div>
-                <div class="col-sm-5 col-md-5">
+                <div class="col-sm-10 col-md-10">
                     <input class="form-control" ng-model="input.query"/>
                 </div>
                 <div class="col-sm-1 col-md-1">
@@ -107,9 +99,38 @@
                 </div>
             </div>
 
-            <pre ng-show="resultsBundle">{{resultsBundle | json}}</pre>
-
             <pre ng-show="error"><div class="alert alert-danger">{{error | json}}</div></pre>
+
+            <uib-tabset ng-show="resultsBundle">
+                <uib-tab heading="Resources">
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3">
+                            <div class="list-group">
+                                <div class="myScroll">
+                                    <div ng-class="{'list-group-item':true,active:entry.resource.id == selectedEntry.resource.id}"
+                                         ng-repeat="entry in resultsBundle.entry"
+                                         ng-click = "selectEntry(entry)" style="cursor: pointer">
+                                        {{entry.resource.resourceType}}
+                                        <div>{{entry.resource.id}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col-md-9">
+                           <pre ng-show="selectedEntry">{{selectedEntry.resource | json}}</pre>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab heading="Bundle Json">
+                    <br/>
+                    <pre>{{resultsBundle | json}}</pre>
+
+                </uib-tab>
+            </uib-tabset>
+
+
+
 
 
         </uib-tab>
@@ -131,15 +152,9 @@
             </div>
         </uib-tab>
         <uib-tab heading="Tokens" ng-show="idToken || fullToken">
-            <!--
-            <h4>Access token</h4>
-            <input class="form-control" ng-model="fullToken['access_token']"/>
-            -->
             <h4>Server response to request for Access Token</h4>
             <pre>{{fullToken | json}}</pre>
-            <h4>Access token</h4><!--
-            <div>{{accessToken}}</div>
--->
+            <h4>Access token</h4>
             <div ng-show="atDecoded">
                 <h5>Decoded contents (was a JWT token)</h5>
                 <pre>{{atDecoded | json}}</pre>

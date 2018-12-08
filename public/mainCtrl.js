@@ -23,7 +23,15 @@ angular.module("smartTester")
             };
 
             $scope.selectServer = function(svr) {
+                delete $scope.invalidCallback
                 $scope.input.scope = svr.defaultScope;
+
+                //check that the callback is the correct one
+                if (svr.callback !== $scope.callBackUrl) {
+                    $scope.invalidCallback = true;
+                }
+
+
             };
 
             //store the configuration in local storage. Initialize from the pre-defined set...
@@ -32,6 +40,7 @@ angular.module("smartTester")
                     function(data) {
                         $localStorage.smartConfig = data.data.servers
                         //$scope.smartServers = data.data.servers;
+
                         $scope.servers = $localStorage.smartConfig;
                         $scope.input.server = $localStorage.smartConfig[0]
                         $scope.selectServer($scope.input.server);       //set the default scope at startup
@@ -122,10 +131,8 @@ angular.module("smartTester")
                             }
 
                         })
-
-
-                        //$scope.input.server = $scope.servers[0]
-
+                    },function(){
+                        //cancel
                     }
 
                 )
