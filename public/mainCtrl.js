@@ -6,6 +6,22 @@ angular.module("smartTester")
             //note: https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe/related
             //ensures that login can be in iframe
 
+console.log(document.cookie)
+            var cookies = document.cookie.split(";");
+
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf("=");
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+
+                console.log(name)
+               // document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            }
+
+
+
+
+
             //the websocket for feedback from the local server
             let wsUrl = 'wss://'+ window.location.host;
             let ws = new WebSocket(wsUrl);
@@ -35,7 +51,7 @@ angular.module("smartTester")
 
 
             };
-            
+
 
             //store the configuration in local storage. Initialize from the pre-defined set...
             if (! $localStorage.smartConfig) {

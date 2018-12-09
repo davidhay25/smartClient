@@ -147,7 +147,8 @@ app.post('/setup',function(req,res){
             res.json(config)
 
         } else {
-            logger.log(wsConnection,'Error calling '+ options.uri + ": "+ error.toString());
+            let msg = error || body || {msg:'unknown error'}
+            logger.log(wsConnection,'Error calling '+ options.uri + ": "+ msg.toString());
             req.session.error = {err: body};
             res.status(500).send({msg:req.session.error});
 

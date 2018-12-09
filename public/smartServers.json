@@ -1,39 +1,11 @@
 {
   "servers": [
     {
-      "name" : "clinFHIR Smart Client Proxy",
-      "description":"A SMART enabled server that acts as a front end proxy to either a database or a FHIR server",
-      "baseUrl" : "https://localhost:8444/fhir/",
-      "callback" : "https://localhost:8448/callback",
-      "clientId" : "clinfhir-test",
-      "secret": "mySecret",
-      "defaultScope" :"openid profile patient/*.read"
-
-    },
-    {
-      "name" : "SmartHealthIT - from local",
-      "description":"Calls the SMART sandbox provider standalone,",
-      "baseUrl" : "https://launch.smarthealthit.org/v/r3/sim/eyJoIjoiMSIsImkiOiIxIiwiZSI6InNtYXJ0LVByYWN0aXRpb25lci03MTAzMjcwMiJ9/fhir/",
-      "callback" : "https://localhost:8448/callback",
-      "clientId" : "d90584cc-3b0e-40db-8543-536df45a84f4",
-      "secret": "a07NAYD7lnhfBh1b9614dPp_lZxyK5Hf7ImS8GJ2XnbD8SE-ZzAqJhyKykL7359ip0AG5bLC172_M5mhWxuRig",
-      "defaultScope" :"openid profile patient/*.*"
-    },
-    {
-      "name" : "SmartHealthIT - from clinFHIR",
-      "description":"Calls the SMART sandbox provider standalone,",
-      "baseUrl" : "https://launch.smarthealthit.org/v/r3/sim/eyJoIjoiMSIsImkiOiIxIiwiZSI6InNtYXJ0LVByYWN0aXRpb25lci03MTAzMjcwMiJ9/fhir/",
-      "callback" : "https://clinfhir.com:8448/callback",
-      "clientId" : "d90584cc-3b0e-40db-8543-536df45a84f4",
-      "secret": "a07NAYD7lnhfBh1b9614dPp_lZxyK5Hf7ImS8GJ2XnbD8SE-ZzAqJhyKykL7359ip0AG5bLC172_M5mhWxuRig",
-      "defaultScope" :"openid profile patient/*.*"
-    },
-    {
-      "name" : "mySmile",
-      "description":"My Amazon SMILE server",
-      "fhirVersion" : "3",
-      "baseUrl" : "https://hof.smilecdr.com:8000/",
-      "callback" : "https://localhost:8444/callback",
+      "id" : "number1",
+      "name" : "SMART Sandbox",
+      "description":"A 'profile' created on the SMART sandbox",
+      "baseUrl" : "https://launch.smarthealthit.org/v/r3/sim/eyJoIjoiMSIsImoiOiIxIn0/fhir"/,
+      "callback" : "https://callback",
       "clientId" : "clinfhir-test",
       "secret": "mySecret",
       "defaultScope" :"openid profile patient/*.read"
