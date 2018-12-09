@@ -59,7 +59,9 @@ let server = https.createServer(sslOptions, app).listen(8448);
 console.log('server listening via TLS on port 8448');
 
 //serve pages from public folder
-app.use(express.static('public'));
+app.use(express.static('public',{index:'main.html'}));
+
+//app.use('/', express.static(__dirname,{index:'/login.html'}));
 
 //sets the websocket connection to use for this session. Keyed to the source IP. There is a better way, but having
 //issues making it work. this must be first middleware

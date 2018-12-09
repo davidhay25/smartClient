@@ -13,6 +13,8 @@ angular.module("smartTester")
             //the callback url
             $scope.callBackUrl = window.location.origin + "/callback";
 
+            $scope.iframeUrl = "instructions.html";
+
             $scope.input = {};
 
             $scope.messages = [];
@@ -36,7 +38,7 @@ angular.module("smartTester")
 
             //store the configuration in local storage. Initialize from the pre-defined set...
             if (! $localStorage.smartConfig) {
-                $http.get('/smartConfig').then(
+                $http.get('/smartServers').then(
                     function(data) {
                         $localStorage.smartConfig = data.data.servers
                         //$scope.smartServers = data.data.servers;
@@ -143,7 +145,7 @@ angular.module("smartTester")
             //initiate the login handshake...
             $scope.start = function() {
 
-                $scope.authEndpoint = "about:blank";
+                $scope.iframeUrl = "about:blank";
 
                 if ($scope.input.server.callback !== $scope.callBackUrl) {
                     alert('The callback url must be '+ $scope.callBackUrl);
@@ -160,7 +162,7 @@ angular.module("smartTester")
                         //direct the iframe to the auth endpoint in the app server. This will re-direct to the smart server endpoint...
                         //the smart endpoints will have also been saved in the app server session
                        // $scope.messages.push({msg:'Redirecting to auth server'});
-                        $scope.authEndpoint = url//;config.authorize;
+                        $scope.iframeUrl = url//;config.authorize;
                     },
                     function(err) {
                         console.log(err)

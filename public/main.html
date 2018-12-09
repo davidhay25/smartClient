@@ -112,7 +112,11 @@
                     </select>
                 </div>
                 <div class="col-md-3 col-sm-3">
-                    <button class="btn-primary btn pull-right" ng-click="start()">Login</button>
+                    <button class="btn-primary btn pull-right" ng-click="start()"
+                            uib-popover="Start the login process "
+                            popover-placement="left"
+                            popover-trigger="'mouseenter'"
+                    >Login</button>
                 </div>
             </div>
 
@@ -125,8 +129,6 @@
                     It should be {{callBackUrl}}</small>
                 </div>
             </div>
-
-
 
             <br/>
             <div class="row">
@@ -165,7 +167,7 @@
         </div>
         <div class="col-md-8 col-sm-8">
 
-            <iframe ng-src="{{authEndpoint | trustAsResourceUrl}}" height="800px" width="100%"></iframe>
+            <iframe ng-src="{{iframeUrl | trustAsResourceUrl}}" height="800px" width="100%"></iframe>
         </div>
 
     </div>
