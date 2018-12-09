@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0a0d34d-5ae3-4e2c-a640-cab091f65fef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/smartServersBAK.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mainCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/mainCtrl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/smartServers.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/smartServers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartClientServer.js" beforeDir="false" afterPath="$PROJECT_DIR$/smartClientServer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -56,14 +52,14 @@
           <entry key="gitignore" value="5" />
           <entry key="html" value="7524" />
           <entry key="js" value="10958" />
-          <entry key="json" value="330" />
+          <entry key="json" value="331" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Git file" value="5" />
           <entry key="HTML" value="7524" />
-          <entry key="JSON" value="330" />
+          <entry key="JSON" value="331" />
           <entry key="JavaScript" value="10958" />
         </counts>
       </usages-collector>
@@ -99,8 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/queryCtl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="60" column="36" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="36" />
+            <state relative-caret-position="210">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -185,8 +181,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/smartServers.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+            <state relative-caret-position="195">
+              <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -234,7 +230,6 @@
       <find>selectServer</find>
       <find>serverData</find>
       <find>col-md-3</find>
-      <find>selectEntry</find>
       <find>ng-class</find>
       <find>selectedEntry</find>
       <find>popov</find>
@@ -242,6 +237,7 @@
       <find>div</find>
       <find>invalidCallback</find>
       <find>stat</find>
+      <find>selectEntry</find>
     </findStrings>
     <replaceStrings>
       <replace>li</replace>
@@ -380,12 +376,12 @@
       <workItem from="1543598576862" duration="32637000" />
       <workItem from="1543728425930" duration="10850000" />
       <workItem from="1543816556903" duration="20347000" />
-      <workItem from="1544063186962" duration="27166000" />
+      <workItem from="1544063186962" duration="27546000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91000000" />
+    <option name="totallyTimeSpent" value="91380000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="92" y="65" width="1458" height="872" extended-state="0" />
@@ -509,13 +505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/queryCtl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="60" column="36" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/editSMARTServerList.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -613,10 +602,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/queryCtl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/smartServers.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        <state relative-caret-position="195">
+          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
         </state>
       </provider>
     </entry>

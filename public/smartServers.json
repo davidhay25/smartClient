@@ -4,7 +4,7 @@
       "id" : "number1",
       "name" : "SMART Sandbox",
       "description":"A 'profile' created on the SMART sandbox",
-      "baseUrl" : "https://launch.smarthealthit.org/v/r3/sim/eyJoIjoiMSIsImoiOiIxIn0/fhir"/,
+      "baseUrl" : "https://launch.smarthealthit.org/v/r3/sim/eyJoIjoiMSIsImoiOiIxIn0/fhir/",
       "callback" : "https://callback",
       "clientId" : "clinfhir-test",
       "secret": "mySecret",
