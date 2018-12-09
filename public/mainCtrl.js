@@ -35,10 +35,11 @@ angular.module("smartTester")
 
 
             };
+            
 
             //store the configuration in local storage. Initialize from the pre-defined set...
             if (! $localStorage.smartConfig) {
-                $http.get('/smartServers.json').then(
+                $http.get('smartServers.json').then(
                     function(data) {
                         $localStorage.smartConfig = data.data.servers
                         //$scope.smartServers = data.data.servers;
