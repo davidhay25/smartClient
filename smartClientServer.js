@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /* The server for the smartClient app*/
 
 const express = require('express')

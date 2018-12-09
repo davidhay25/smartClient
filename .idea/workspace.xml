@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e0a0d34d-5ae3-4e2c-a640-cab091f65fef" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/public/instructions.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/instructions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/smartClient.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mainCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/mainCtrl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smartClientServer.js" beforeDir="false" afterPath="$PROJECT_DIR$/smartClientServer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -52,17 +52,17 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="5" />
-          <entry key="html" value="7523" />
-          <entry key="js" value="10805" />
+          <entry key="html" value="7524" />
+          <entry key="js" value="10812" />
           <entry key="json" value="222" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Git file" value="5" />
-          <entry key="HTML" value="7523" />
+          <entry key="HTML" value="7524" />
           <entry key="JSON" value="222" />
-          <entry key="JavaScript" value="10805" />
+          <entry key="JavaScript" value="10812" />
         </counts>
       </usages-collector>
     </session>
@@ -85,8 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/instructions.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="63" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+            <state relative-caret-position="270">
+              <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
               <folding>
                 <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -117,14 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smartClientServer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="61" column="51" selection-start-line="61" selection-start-column="51" selection-end-line="61" selection-end-column="51" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -142,16 +139,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/mainCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="31" column="57" lean-forward="true" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
+            <state relative-caret-position="368">
+              <caret line="45" column="43" lean-forward="true" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
               <folding>
-                <element signature="e#130#243#0" />
                 <element signature="e#671#789#0" />
-                <element signature="e#1291#1915#0" />
-                <element signature="e#1376#1788#0" />
+                <element signature="e#840#1148#0" />
                 <element signature="e#1804#1882#0" />
                 <element signature="e#1921#2152#0" />
                 <element signature="e#2365#5515#0" />
@@ -172,6 +167,7 @@
                 <element signature="e#5209#5391#0" />
                 <element signature="e#5274#5364#0" />
                 <element signature="e#5425#5481#0" />
+                <element signature="e#5603#6906#0" />
                 <element signature="e#5733#5855#0" />
                 <element signature="e#6117#6773#0" />
                 <element signature="e#6300#6363#0" />
@@ -231,9 +227,9 @@
       <find>ng-class</find>
       <find>selectedEntry</find>
       <find>popov</find>
-      <find>stat</find>
       <find>invalidCallback</find>
       <find>ifram</find>
+      <find>stat</find>
       <find>div</find>
     </findStrings>
     <replaceStrings>
@@ -261,10 +257,10 @@
         <option value="$PROJECT_DIR$/myModules/smartModule.js" />
         <option value="$PROJECT_DIR$/public/queryCtl.js" />
         <option value="$PROJECT_DIR$/public/query.html" />
-        <option value="$PROJECT_DIR$/public/mainCtrl.js" />
         <option value="$PROJECT_DIR$/public/main.html" />
-        <option value="$PROJECT_DIR$/public/instructions.html" />
         <option value="$PROJECT_DIR$/smartClientServer.js" />
+        <option value="$PROJECT_DIR$/public/instructions.html" />
+        <option value="$PROJECT_DIR$/public/mainCtrl.js" />
       </list>
     </option>
   </component>
@@ -371,19 +367,20 @@
       <workItem from="1543598576862" duration="32637000" />
       <workItem from="1543728425930" duration="10850000" />
       <workItem from="1543816556903" duration="20347000" />
-      <workItem from="1544063186962" duration="24964000" />
+      <workItem from="1544063186962" duration="25358000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88798000" />
+    <option name="totallyTimeSpent" value="89192000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="92" y="65" width="1458" height="872" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16631871" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.16631871" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -391,7 +388,7 @@
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.29615384" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.29615384" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -529,15 +526,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/smartServers.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="105" selection-start-line="18" selection-start-column="105" selection-end-line="18" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/smartClient.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="128" column="46" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="46" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#small#0;n#div#1;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartClientServer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/instructions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/mainCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="31" column="57" lean-forward="true" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
+        <state relative-caret-position="368">
+          <caret line="45" column="43" lean-forward="true" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
           <folding>
-            <element signature="e#130#243#0" />
             <element signature="e#671#789#0" />
-            <element signature="e#1291#1915#0" />
-            <element signature="e#1376#1788#0" />
+            <element signature="e#840#1148#0" />
             <element signature="e#1804#1882#0" />
             <element signature="e#1921#2152#0" />
             <element signature="e#2365#5515#0" />
@@ -558,6 +588,7 @@
             <element signature="e#5209#5391#0" />
             <element signature="e#5274#5364#0" />
             <element signature="e#5425#5481#0" />
+            <element signature="e#5603#6906#0" />
             <element signature="e#5733#5855#0" />
             <element signature="e#6117#6773#0" />
             <element signature="e#6300#6363#0" />
@@ -565,44 +596,6 @@
             <element signature="e#6956#7096#0" />
             <element signature="e#6980#7095#0" />
             <element signature="e#7016#7084#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/smartServers.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="105" selection-start-line="18" selection-start-column="105" selection-end-line="18" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/smartClient.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="128" column="46" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="46" />
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#small#0;n#div#1;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/instructions.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="63" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smartClientServer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="61" column="51" selection-start-line="61" selection-start-column="51" selection-end-line="61" selection-end-column="51" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
