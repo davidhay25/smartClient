@@ -5,10 +5,77 @@
     <title>Instructions</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 
+
 </head>
-<body>
+<body style="padding: 8px">
 
-<h1>Instructions</h1>
+<h2>Description and links</h2>
 
+<div>This app will allow you to connect to a SMART protected server, and execute queries against that server. There are a
+couple of servers already configured (the SMART test site and the clinFHIR server - under development), but you can easily add
+other servers as needed.</div>
+<div></div>
+
+<h3>Links )open in new tab)</h3>
+<ul class="list-unstyled">
+    <li><a target="_blank" href="http://hl7.org/fhir/index.html">FHIR Specification</a></li>
+    <li><a target="_blank" href="http://hl7.org/fhir/smart-app-launch/">SMART Specification</a></li>
+
+</ul>
+
+<h2>Quick start instructions</h2>
+
+<h3>To connect to a server</h3>
+
+<ul>
+   <li>Select the server in the left panel, then click the 'Login' button to start the connection process.</li>
+
+    <li>If the callback is not correct (ie it doesn't match the one exposed by the local server) then you'll get an error
+message and the process will top. Otherwise, the app will read the CapabilityStatement from the server root to get
+    the SMART endpoints exposed by the remote server, then the iFrame (this window) will be re-directed to the SMART
+Authorization end point as per the specification.</li>
+    <li>Progress will be displayed on the left side. If there are errors, then they will displayed either here, or in the iFrame</li>
+</ul>
+
+<h3>Add a new server to the list</h3>
+<ul>
+    <li>Click the 'cog' icon to the upper right, and select the 'Edit server list' option. A dialog with all the currently configured servers
+    will be displayed</li>
+    <li>To add a new server, you must first have registered this app with the SMART server, and have a login to the SMART server if
+        it requires it. This process will depend on the SMART server.</li>
+    <li>To add a configuration to the app,
+        click the 'Add' button at the top left above the list of servers. The right tab will display a form with inputs
+        for each option. The following values can be entered through the SMART configuration tab:</li>
+    <ul>
+        <li>A <strong>name</strong> for the server config. This will appear in the list to the left, and should be unique in the list</li>
+        <li>An optional <strong>description</strong> of the configuration</li>
+        <li>The <strong>base url</strong> to the SMART servers endpoint. This is where the FHIR server is located. Be sure to include the trailing '/'</li>
+        <li>The <strong>callback url</strong>. This is where the SMART server will redirect the browser to after authentication. The value is pre-populated (as
+            it is exposed by this app, and it must match one of the callbacks registered in the SMART server.</li>
+        <li>The <strong>client id</strong>. This must be the same as the one assigned by the SMART server when the app was registered</li>
+        <li>If you have specified that this app is a confidential one (It isn't really as the config data is stored in the
+        browser - but that doesn't matter for testing) then enter the <strong>secret</strong> that was supplied by the SMART server.</li>
+        <li>The <strong>default scope</strong> for the app. This can be changed when actually making the call.</li>
+    </ul>
+    <li>You can also enter your login credentials and notes about the server in the 'User details & Notes' tab. These are just for your
+    convenience and are not sent to the server</li>
+    <li>Click the 'Update list' button at the upper right to save. (The whole list is updated)</li>
+</ul>
+
+<h3>Edit an existing server</h3>
+<ul>
+    <li>Click the 'cog' icon to the upper right, and select the 'Edit server list' option. A dialog with all the currently configured servers
+        will be displayed</li>
+    <li>Select the entry you wish to change, and update as required (see notes above).</li>
+    <li>Click 'Update list' to save.</li>
+</ul>
+
+<h3>Remove a server</h3>
+<ul>
+    <li>Click the 'cog' icon to the upper right, and select the 'Edit server list' option. A dialog with all the currently configured servers
+        will be displayed</li>
+    <li>Select the entry you wish to remove and click the 'Delete' link to the upper right.</li>
+    <li>Click 'Update list' to save.</li>
+</ul>
 </body>
 </html>

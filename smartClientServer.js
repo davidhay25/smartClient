@@ -55,11 +55,11 @@ const sslOptions = {
 };
 
 //create the https server...
-let server = https.createServer(sslOptions, app).listen(8448);
-console.log('server listening via TLS on port 8448');
+let server = https.createServer(sslOptions, app).listen(443);
+console.log('server listening via TLS on port 443');
 
 //serve pages from public folder
-app.use(express.static('public',{index:'main.html'}));
+app.use(express.static('public',{index:'smartClient.html'}));
 
 //app.use('/', express.static(__dirname,{index:'/login.html'}));
 
