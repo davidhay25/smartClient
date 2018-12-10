@@ -35,19 +35,9 @@ try {
 } catch (ex) {
     privKey = fs.readFileSync('./keys/key.pem');
     cert = fs.readFileSync('./keys/cert.pem');
-    passphrase = 'ne11ieh@y'
+    passphrase = 'password'
     console.log('using self signed SSL keys')
 }
-
-/*
-const sslOptions = {
-    key: fs.readFileSync('./keys/key.pem'),
-    cert: fs.readFileSync('./keys/cert.pem'),
-    passphrase:'ne11ieh@y'
-};
-
-*/
-
 
 
 const sslOptions = {
@@ -56,14 +46,12 @@ const sslOptions = {
     passphrase:passphrase
 };
 
-//create the https server...
+//create the https server onthe standard SSL port...
 let server = https.createServer(sslOptions, app).listen(443);
 console.log('server listening via TLS on port 443');
 
 //serve pages from public folder
 app.use(express.static('public',{index:'smartClient.html'}));
-
-//app.use('/', express.static(__dirname,{index:'/login.html'}));
 
 //sets the websocket connection to use for this session. Keyed to the source IP. There is a better way, but having
 //issues making it work. this must be first middleware
@@ -77,7 +65,6 @@ app.use(function (req, res, next) {
     else {
         //if no websocket connection can be made then abort. Not sure if this is the right thing to do, but otherwise can't send messages back...
         res.redirect('error.html?msg=Unable to connect to the webSocket server...')
-       // req.wsConnection = wsConnection;
     }
 
 
@@ -121,14 +108,19 @@ wss.on('connection', function connection(ws,socket) {
 app.post('/setup',function(req,res){
     let config = req.body;      //contains clientid, secret, baseUrl etc.
 
-    logger.log(req.wsConnection,'Retrieving CapabilityStatement from SMART server at '+ config.baseUrl + "metadata");
+    let baseUrl = config.baseUrl;
+    //make sure there is a trailing /
+    if (baseUrl[baseUrl.length -1] !== '/')  {
+        baseUrl += '/'
+    }
+
+    logger.log(req.wsConnection,'Retrieving CapabilityStatement from SMART server at '+ baseUrl + "metadata");
     req.session.config = config;    //save the config for subsequent use...
 
-    //delete req.session['serverData'];
 
-    var options = {
+    let options = {
         method: 'GET',
-        uri: config.baseUrl + "metadata",
+        uri: baseUrl + "metadata",
         agentOptions: {
             rejectUnauthorized: false //allows self signed certificates to be used...
         },

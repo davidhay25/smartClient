@@ -1,5 +1,5 @@
 angular.module("smartTester")
-    .controller('mainCtrl',
+    .controller('smartClientCtrl',
         function ($scope,$http,$localStorage,$uibModal) {
 
 
@@ -75,7 +75,6 @@ console.log(document.cookie)
 
             }
 
-           // $scope.selectServer($scope.input.server);       //set the default scope at startup
 
             //edit the list of smart servers configured in this browser
             $scope.editList = function() {
@@ -147,6 +146,10 @@ console.log(document.cookie)
                         $scope.servers.forEach(function (svr) {
                             if (svr.name == currentServerName) {
                                 $scope.input.server = svr;
+                                $scope.selectServer(svr);
+
+
+
                             }
 
                         })

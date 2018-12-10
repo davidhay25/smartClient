@@ -35,7 +35,7 @@
     </style>
 
 
-    <script src="mainCtrl.js"></script>
+    <script src="smartClientCtrl.js"></script>
 
 
 
@@ -43,16 +43,16 @@
 <body  style="padding-top: 80px">
 
 
-<div ng-app="smartTester" ng-controller="mainCtrl" class="container-fluid">
+<div ng-app="smartTester" ng-controller="smartClientCtrl" class="container-fluid">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-        <div class="col-md-10">
+        <div class="col-md-9 col-sm-9">
             <span class="navbar-brand" href="#">
                clinFHIR SMART Tester: Login to server
             </span>
         </div>
 
-        <div class="col-md-1">
+        <div class="col-md-1 col-sm-1">
 
             <form class="navbar-form navbar-left">
                 <img ng-show="waiting" src="ajax_loader_blue_32.gif"/>
@@ -60,7 +60,12 @@
 
         </div>
 
-        <div class="col-md-1">
+        <div class="col-md-2  col-sm-2">
+            <div class="navbar-text">
+                <button class="btn btn-link pull-right" ng-click="editList()">Edit server list</button>
+            </div>
+
+            <!--
         <ul class="nav navbar-nav navbar-right" >
             <li uib-dropdown>
                 <a href="#" uib-dropdown-toggle>
@@ -89,6 +94,7 @@
 
             </li>
         </ul>
+            -->
         </div>
 
 
