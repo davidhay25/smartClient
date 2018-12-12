@@ -1,22 +1,11 @@
 angular.module("smartTester")
     .controller('smartClientCtrl',
-        function ($scope,$http,$localStorage,$uibModal) {
+        function ($scope,$http,$localStorage,$uibModal,$timeout) {
 
 
             //note: https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe/related
             //ensures that login can be in iframe
 
-console.log(document.cookie)
-            var cookies = document.cookie.split(";");
-
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i];
-                var eqPos = cookie.indexOf("=");
-                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-
-                console.log(name)
-               // document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-            }
 
 
 
@@ -29,7 +18,7 @@ console.log(document.cookie)
             //the callback url
             $scope.callBackUrl = window.location.origin + "/callback";
 
-            $scope.iframeUrl = "instructions.html";
+
 
             $scope.input = {};
 
@@ -40,8 +29,14 @@ console.log(document.cookie)
                 $scope.$digest();
             };
 
+            $scope.showHelp = function() {
+                $scope.iframeUrl = "instructions.html";
+            };
+           // $scope.showHelp();
+
             $scope.selectServer = function(svr) {
-                delete $scope.invalidCallback
+                delete $scope.invalidCallback;
+                delete $scope.useTab;       //if true then uses a tab rather than the iframe
                 $scope.input.scope = svr.defaultScope;
 
                 //check that the callback is the correct one
@@ -50,6 +45,10 @@ console.log(document.cookie)
                 }
 
 
+
+                if (svr.browser == 'tab') {
+                    $scope.useTab = true;
+                }
             };
 
 
@@ -80,11 +79,10 @@ console.log(document.cookie)
             $scope.editList = function() {
 
                 let currentServerName = $scope.input.server.name;
-
-
                 $uibModal.open({
                     templateUrl: 'editSMARTServerList.html',
                     size : 'lg',
+                    backdrop : 'static',
                     controller:
                         function($scope,servers,callBackUrl) {
                             $scope.servers = servers;
@@ -94,6 +92,7 @@ console.log(document.cookie)
                             //Select a server from the list
                             $scope.selectSvr = function (svr) {
                                 $scope.selectedServer = svr
+                                $scope.selectedServer.browser = $scope.selectedServer.browser || 'iframe';
                             };
 
                             //remove the current item
@@ -116,7 +115,7 @@ console.log(document.cookie)
 
                             //Add a new server
                             $scope.add = function() {
-                                let newServer = {"name":"New Server",callback:callBackUrl}
+                                let newServer = {"name":"New Server",callback:callBackUrl,defaultScope:'Patient/*.read',browser:'iframe'}
                                 $scope.servers.push(newServer)
                                 $scope.selectedServer = newServer;
                                 $scope.dirty = true;
@@ -174,21 +173,42 @@ console.log(document.cookie)
 
                 $scope.messages.length = 0;
                 $scope.messages.push({msg:"Initiating login by sending config to the local server...",src:'server'});
-                $http.post('/setup',$scope.input.server).then(
+                let config = angular.copy($scope.input.server);
+                //config.now = new Date().getTime();      //so we can calculate the token expiry relative to local time...
+                $http.post('/setup',config).then(
                     function(data) {
                         console.log(data.data)
                         let url = '/appAuth?scope=' + $scope.input.scope;
                         let smartEndpoints = data.data;     //setup will return the smart endpoints parsed from the capStmt
                         //direct the iframe to the auth endpoint in the app server. This will re-direct to the smart server endpoint...
                         //the smart endpoints will have also been saved in the app server session
-                       // $scope.messages.push({msg:'Redirecting to auth server'});
-                        $scope.iframeUrl = url//;config.authorize;
+
+
+
+                        if ($scope.useTab) {
+                            //use a separate tab for the browser
+                            $scope.externalTabUrl = url//;config.authorize;
+                        } else {
+                            //use an iframs for the browser
+                            $scope.iframeUrl = url
+                        }
+
+                        //$scope.iframeUrl = url//;config.authorize;
                     },
                     function(err) {
                         console.log(err)
                     }
                 );
+            };
+
+            //after opening the separate tab, this will hide the button
+            $scope.newTabActivated = function() {
+                $timeout(function(){
+                    delete $scope.externalTabUrl
+                },10000)
+
             }
+
         }
         ).filter('trustAsResourceUrl', ['$sce', function($sce) {
              return function(val) {

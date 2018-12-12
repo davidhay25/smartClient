@@ -13,21 +13,23 @@ const smartModule = require('./myModules/smartModule');
 const request = require('request');
 const WebSocket = require('ws');
 
-app.use(bodyParser.json())
+
+app.use(bodyParser.json());
 
 const sessionParser = session({
     saveUninitialized: false,
     secret: 'mySecret',
     resave: true,
     cookie: { secure: true }
-})
+});
+
 app.use(sessionParser);
 
 //enable SSL - https://aghassi.github.io/ssl-using-express-4/
 const https = require('https');
 
 //try to load the SSL keys from the 'production' location
-let privKey,cert,passphrase
+let privKey,cert,passphrase;
 try {
     privKey = fs.readFileSync('/etc/letsencrypt/live/clinfhir.com/privkey.pem');
     cert = fs.readFileSync('/etc/letsencrypt/live/clinfhir.com/cert.pem');
@@ -35,7 +37,7 @@ try {
 } catch (ex) {
     privKey = fs.readFileSync('./keys/key.pem');
     cert = fs.readFileSync('./keys/cert.pem');
-    passphrase = 'password'
+    passphrase = 'password';
     console.log('using self signed SSL keys')
 }
 
@@ -106,7 +108,7 @@ wss.on('connection', function connection(ws,socket) {
 // save the config against the session then
 //load the capabilityStatement from the server, and set the SMART end points in the session also
 app.post('/setup',function(req,res){
-    let config = req.body;      //contains clientid, secret, baseUrl etc.
+    let config = req.body;      //contains clientid, secret, baseUrl etc. - everything from the client config. Should really be on the server of course...
 
     let baseUrl = config.baseUrl;
     //make sure there is a trailing /
@@ -114,9 +116,22 @@ app.post('/setup',function(req,res){
         baseUrl += '/'
     }
 
-    logger.log(req.wsConnection,'Retrieving CapabilityStatement from SMART server at '+ baseUrl + "metadata");
+
     req.session.config = config;    //save the config for subsequent use...
 
+    if (config.authEP || config.tokenEP) {
+        let smFixedConfig={}
+        smFixedConfig.authorize = config.authEP;
+        smFixedConfig.token = config.tokenEP;
+        req.session['smartEndpoints'] = smFixedConfig;
+        req.session['serverData'] = {};
+
+            logger.log(req.wsConnection,'OAuth end points were set in the client config');
+        res.json(smFixedConfig)
+        return
+    }
+
+    logger.log(req.wsConnection,'Retrieving CapabilityStatement from SMART server at '+ baseUrl + "metadata");
 
     let options = {
         method: 'GET',
@@ -133,10 +148,10 @@ app.post('/setup',function(req,res){
             logger.log(wsConnection,'CapabilityStatement received from server');
             var capStmt = JSON.parse(body);
             req.session['serverData'] = {capStmt:capStmt}; //this will hold tokens & such so they can be displayed in the UI for debugging
-            let config={}
-            smartModule.getSMARTEndpoints(config,capStmt)
-            req.session['smartEndpoints'] = config;     //save the smart endpoints. They will be needed when authentication to the smart server
-            res.json(config)
+            let smConfig={}
+            smartModule.getSMARTEndpoints(smConfig,capStmt)
+            req.session['smartEndpoints'] = smConfig;     //save the smart endpoints. They will be needed when authentication to the smart server
+            res.json(smConfig)
 
         } else {
             let msg = error || body || {msg:'unknown error'}

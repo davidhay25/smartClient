@@ -7,7 +7,9 @@
     <script src="angular-sanitize.js"></script>
     <script src="ui-bootstrap-tpls-2.0.1.min.js"></script>
     <script src="ngStorage.min.js"></script>
-
+<!--
+    <script src="angular-bootstrap-checkbox.js"></script>
+-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 
 
@@ -45,8 +47,8 @@
 
 <div ng-app="smartTester" ng-controller="smartClientCtrl" class="container-fluid">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-        <div class="col-md-9 col-sm-9">
+
+        <div class="col-md-8 col-sm-8">
             <span class="navbar-brand" href="#">
                clinFHIR SMART Tester: Login to server
             </span>
@@ -60,47 +62,27 @@
 
         </div>
 
+
+
+
+
         <div class="col-md-2  col-sm-2">
             <div class="navbar-text">
+
                 <button class="btn btn-link pull-right" ng-click="editList()">Edit server list</button>
             </div>
+        </div>
 
-            <!--
-        <ul class="nav navbar-nav navbar-right" >
-            <li uib-dropdown>
-                <a href="#" uib-dropdown-toggle>
-                    <span style="font-size:2em; cursor: pointer">
-                           <i class="glyphicon glyphicon-cog"></i>
-                    </span>
-                </a>
+        <div class="col-md-1 col-sm-1">
+            <div class="navbar-text">
+            <i class="clickable glyphicon glyphicon-question-sign pull-right"  style="font-size: 20px;" ng-click="showHelp()">
 
-                <ul class="dropdown-menu" role="menu">
-
-                    <li><a href="#" ng-click="editList()">Edit server list</a></li>
-                    <li>
-                        <a class="pull-right" target="_blank" href="http://hl7.org/fhir/smart-app-launch/index.html">
-                            Load SMART spec
-                        </a>
-                    </li>
-                </ul>
-
-
-
-
-
-
-
-
-
-            </li>
-        </ul>
-            -->
+            </i>
+            </div>
         </div>
 
 
 
-
-    </div>
     </nav>
 
     <div class="row">
@@ -163,6 +145,7 @@
             <pre>{{input.server | json}}</pre>
 
 
+
             <div class="banner">Progress updates from local server</div>
             <div class="list-group">
                 <div ng-repeat="msg in messages" class="list-group-item">
@@ -170,10 +153,30 @@
                 </div>
             </div>
 
+
+
         </div>
         <div class="col-md-8 col-sm-8">
 
+            <div ng-show="useTab">
+                <h3>This server requires a login via a separate tab (not an iFrame)</h3>
+                <div>After clicking the login button, the app will retrieve the CapabilityStatament resource
+                (to get the SMART endpoints) and then display a button just below this text that you need to click to continue.
+                After this, a separate tab will open, and the login process (and subsequent query) will continue in
+                that tab.</div>
+                <br/>
+                <p>This extra step is needed as Browsers require human intervention to open separate tabs</p>
+                <br/>
+                <a class="btn btn-danger" ng-click="newTabActivated()" ng-show="externalTabUrl" href={{externalTabUrl}} target="_blank">
+                    Click to continue login.
+                </a>
+            </div>
+
+
             <iframe ng-src="{{iframeUrl | trustAsResourceUrl}}" height="800px" width="100%"></iframe>
+
+
+
         </div>
 
     </div>

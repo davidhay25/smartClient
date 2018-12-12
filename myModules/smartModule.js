@@ -7,6 +7,7 @@ const logger = require('./logger');
 const request = require('request');
 const jwt  = require('jsonwebtoken');   //https://www.npmjs.com/package/jsonwebtoken
 const jwkToPem = require("jwk-to-pem"); //https://www.npmjs.com/package/jwk-to-pem
+//const moment = require('moment');
 
 
 //called by server.js (the local server)
@@ -85,6 +86,41 @@ let init = (app) => {
         )
     });
 
+    //request a refresh token
+    app.get('/refresh',function(req,res){
+        logger.log(req.wsConnection,'Requesting a refresh token','app');
+        let vo = {};    //info to pass into the 'getAccessToken' function...
+        //request an access token from the Auth server.
+        let smartEndpoints = req.session['smartEndpoints']; //retrieve the configuration from the session. This was set in /appAuth.
+        let config = req.session.config;    //the config set in /setup when this login started...
+
+
+        vo.refreshToken = req.session.refreshToken;
+        vo.url = smartEndpoints.token;
+        vo.callback = config.callback;
+        vo.public = config.public;
+        vo.clientId = config.clientId;
+        vo.secret = config.secret;
+        vo.type = 'refresh';       //other option is 'refresh'
+        vo.wsConnection = req.wsConnection;
+        vo.session = req.session;
+        getAccessToken(vo).then(
+            function(){
+                //logger.log(req.wsConnection,'retrieved Access token','app');
+                let response = {};
+                response.accessToken =  vo.session['accessToken'];
+                response.refreshToken =  vo.session['refreshToken'];
+                response.expiresIn =  vo.session['expiresIn']
+
+                res.json(response);
+            },
+            function(msg) {
+                res.status(500).send(msg);
+            }
+        )
+
+    });
+
     //make a FHIR call. the remainder of the query beyond '/orionfhir/*' is the actual query to be sent to the server
     app.get('/sendquery/*',function(req,res){
 
@@ -135,6 +171,7 @@ let init = (app) => {
 
 };
 
+//get an access token form the auth server
 let getAccessToken = (vo) => {
     return new Promise(function(resolve,reject){
         logger.log(vo.wsConnection,'Requesting access token','app');
@@ -147,6 +184,13 @@ let getAccessToken = (vo) => {
             body: 'code=' + vo.code + "&grant_type=authorization_code&redirect_uri=" + encodeURIComponent(vo.callback),
             headers: {'content-type': 'application/x-www-form-urlencoded'}
         };
+
+        console.log(options)
+
+        //change the body for a refresh token...
+        if (vo.type == 'refresh') {
+            options.body ='refresh_token=' + vo.refreshToken + "&grant_type=refresh_token&redirect_uri=" + encodeURIComponent(vo.callback);
+        }
 
         if (vo.public) {
             //a public client includes the client id, but no auth header
@@ -169,26 +213,27 @@ let getAccessToken = (vo) => {
             if (response) {
                 if ( response.statusCode == 200) {
                     //save the access token in the session cache. Note that this is NOT sent to the client
-                    var token = JSON.parse(body);
+                    let returnedObject = JSON.parse(body);
                     console.log('-----------');
 
-                    console.log('at',token)
+                    console.log('at',returnedObject)
                     console.log('-----------');
 
 
                     logger.log(vo.wsConnection,'successful access token request','app');
-                   // logger.log(vo.wsConnection,body,'app');
-                    vo.session['accessToken'] = token['access_token'];  //used when making server queries...
+                    vo.session['accessToken'] = returnedObject['access_token'];  //used when making server queries...
+                    vo.session['refreshToken'] = returnedObject['refresh_token'];   //may be null...
+                    vo.session['expiresIn'] = returnedObject['expires_in'];   //may be null...
+
+                    //serverData is just to return to the client for display...
+                    vo.session.serverData['authServerResponse'] = returnedObject
+                    vo.session.serverData.scope = returnedObject.scope;
+                    vo.session.serverData.accessToken = returnedObject['access_token'];
+                    vo.session.serverData.refreshToken = returnedObject['refresh_token']
 
 
-                    vo.session.serverData['authServerResponse'] = token
-                    vo.session.serverData.scope = token.scope;
-                    //vo.session.serverData.fullToken = token;
-                    //vo.session.serverData.config = vo.session["config"];
-                    vo.session.serverData.accessToken = token['access_token']
 
-
-                    let access_token = token['access_token'];
+                    let access_token = returnedObject['access_token'];
                     //logger.log(vo.wsConnection,access_token,'app');
                     //see if the auth token is a jwt token.
                     try {
@@ -208,7 +253,7 @@ let getAccessToken = (vo) => {
                     //console.log('-----------',access_token);
 
                     //an id token was returned
-                    let id_token = token['id_token'];
+                    let id_token = returnedObject['id_token'];
                     if (id_token) {
                         logger.log(vo.wsConnection,'An id token was returned. Validating... ','app');
 
@@ -229,7 +274,10 @@ let getAccessToken = (vo) => {
                         resolve();
                     }
                 } else {
-                    logger.log(vo.wsConnection,'error making access token request:'+response.statusCode,'app');
+                    logger.log(vo.wsConnection,'error making access token request. Status code'+response.statusCode,'app');
+                    if (body) {
+                        logger.log(vo.wsConnection,'error was: ' + body);
+                    }
                 }
 
             } else {
@@ -306,10 +354,6 @@ let validateIDToken = (rawidtoken) => {
         }
 
 
-        //resolve();
-        //return;
-        //how get the keys to decrypt the id token. I'm not yet sure this is the right place...
-        //in particular, this means that teh server MUST support the whole key lookup thing...
 
     })
 
