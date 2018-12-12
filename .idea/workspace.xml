@@ -4,19 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/myModules/smartModule.js" line="175" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0a0d34d-5ae3-4e2c-a640-cab091f65fef" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myModules/smartModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/myModules/smartModule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/editSMARTServerList.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/editSMARTServerList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/instructions.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/instructions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/query.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/query.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/queryCtl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/queryCtl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/smartClient.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/smartClient.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/smartClientCtrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/smartClientCtrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smartClientServer.js" beforeDir="false" afterPath="$PROJECT_DIR$/smartClientServer.js" afterDir="false" />
-    </list>
+    <list default="true" id="e0a0d34d-5ae3-4e2c-a640-cab091f65fef" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -307,12 +295,12 @@
       <workItem from="1543598576862" duration="32637000" />
       <workItem from="1543728425930" duration="10850000" />
       <workItem from="1543816556903" duration="20347000" />
-      <workItem from="1544063186962" duration="55007000" />
+      <workItem from="1544063186962" duration="55401000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118841000" />
+    <option name="totallyTimeSpent" value="119235000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="83" y="111" width="1458" height="939" extended-state="0" />
