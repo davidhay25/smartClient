@@ -81,6 +81,7 @@ angular.module("queryApp")
 
             $scope.executeQuery = function(srch) {
                 delete $scope.resultsBundle;
+                delete $scope.selectedEntry;
                 delete $scope.error;
 
                 $scope.waiting = true;
@@ -95,7 +96,6 @@ angular.module("queryApp")
                         } catch (ex) {
                             $scope.error = err.data
                         }
-
                     }
                 ).finally(
                     function(){

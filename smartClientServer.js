@@ -41,7 +41,6 @@ try {
     console.log('using self signed SSL keys')
 }
 
-
 const sslOptions = {
     key: privKey,
     cert: cert,

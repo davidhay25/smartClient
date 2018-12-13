@@ -164,7 +164,7 @@
                     </p>
                 </uib-tab>
 
-                <uib-tab heading="Oauth endpoints">
+                <uib-tab heading="Advanced">
                     <form ng-show="selectedServer">
                         <div class="form-group">
                             <label>Authorization endpoint</label>
@@ -179,17 +179,23 @@
                             <small class="form-text text-muted pull-right">Your password</small>
                         </div>
 
-                    </form>
+                        <div class="form-group">
+                            <label>Options when calling Auth server</label>
 
-                    <p>
-                        <em>
-                            <div>You don't generally populate these fields - they are only if the server you're accessing doesn't
-                            return the endpoints as SMART extensions in the CapabilityStatement. This means that the server
-                                is not SMART compliant, but useful for accessing servers that support OAuth2</div>
-                            <div>If they are populated, then the client will not attempt to load the CapabilityStatement,
-                            so be sure that that's what you want to happen.</div>
-                        </em>
-                    </p>
+                            <div class="row">
+                                <div class="col-sm-2 col-md-2">
+                                    <input type="checkbox" class="form-control" ng-model="selectedServer.suppressAud" ng-change="change()"/>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <div style="padding: 7px"> Suppress aud parameter</div>
+                                </div>
+                            </div>
+                            <small class="form-text text-muted pull-right">Don't include the 'aud' parameter when authenticating</small>
+                        </div>
+                    </form>
+                    <hr/>
+
+
                 </uib-tab>
 
 
@@ -199,6 +205,15 @@
 
 
             </uib-tabset>
+        <p>
+            <em>
+                <div>You don't generally populate these fields - they are only if the server you're accessing doesn't
+                    return the endpoints as SMART extensions in the CapabilityStatement. This means that the server
+                    is not SMART compliant, but useful for accessing servers that support OAuth2</div>
+                <div>If they are populated, then the client will not attempt to load the CapabilityStatement,
+                    so be sure that that's what you want to happen.</div>
+            </em>
+        </p>
         </div>
     </div>
 

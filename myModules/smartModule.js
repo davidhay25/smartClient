@@ -35,8 +35,13 @@ let init = (app) => {
         authorizationUri += "&response_type=code";
         authorizationUri += "&scope=" + encodeURIComponent(req.session["scope"]);
         authorizationUri += "&state="+ "test";
-        authorizationUri += "&aud="+ config.baseUrl;
+        //authorizationUri += "&aud="+ config.baseUrl;
         authorizationUri += "&client_id="+config.clientId;
+
+
+        if (! config.suppressAud) {
+            authorizationUri += "&aud="+ config.baseUrl;
+        }
 
         logger.log(req.wsConnection,'Url: '+ decodeURIComponent(authorizationUri),'app');
         res.redirect(authorizationUri);
