@@ -166,14 +166,14 @@
                 that tab.</div>
                 <br/>
                 <p>This extra step is needed as Browsers require human intervention to open separate tabs</p>
-                <br/>
+                <br/><br/>
                 <a class="btn btn-danger" ng-click="newTabActivated()" ng-show="externalTabUrl" href={{externalTabUrl}} target="_blank">
                     Click to continue login.
                 </a>
             </div>
 
 
-            <iframe ng-src="{{iframeUrl | trustAsResourceUrl}}" height="800px" width="100%"></iframe>
+            <iframe ng-src="{{iframeUrl | trustAsResourceUrl}}" ng-hide = 'hideIframe' height="800px" width="100%"></iframe>
 
 
 

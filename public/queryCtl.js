@@ -2,7 +2,7 @@
 
 angular.module("queryApp")
     .controller('queryCtrl',
-        function ($scope,$http,moment,$interval) {
+        function ($scope,$http,moment,$interval,clientServicesSvc) {
 
             $scope.input = {}
 
@@ -106,6 +106,16 @@ angular.module("queryApp")
 
             $scope.selectEntry = function(entry){
                 $scope.selectedEntry = entry
+
+
+                var treeData = clientServicesSvc.buildResourceTree(entry.resource);
+
+                //show the tree of this version
+                $('#resourceTree').jstree('destroy');
+                $('#resourceTree').jstree(
+                    {'core': {'multiple': false, 'data': treeData, 'themes': {name: 'proton', responsive: true}}}
+                )
+
             }
 
     });

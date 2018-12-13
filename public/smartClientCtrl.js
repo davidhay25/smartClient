@@ -6,19 +6,12 @@ angular.module("smartTester")
             //note: https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe/related
             //ensures that login can be in iframe
 
-
-
-
-
-
             //the websocket for feedback from the local server
             let wsUrl = 'wss://'+ window.location.host;
             let ws = new WebSocket(wsUrl);
 
             //the callback url
             $scope.callBackUrl = window.location.origin + "/callback";
-
-
 
             $scope.input = {};
 
@@ -32,7 +25,7 @@ angular.module("smartTester")
             $scope.showHelp = function() {
                 $scope.iframeUrl = "instructions.html";
             };
-           // $scope.showHelp();
+
 
             $scope.selectServer = function(svr) {
                 delete $scope.invalidCallback;
@@ -52,7 +45,7 @@ angular.module("smartTester")
             };
 
 
-            //store the configuration in local storage. Initialize from the pre-defined set...
+            //store the server configuration in local storage. Initialize from the pre-defined set...
             if (! $localStorage.smartConfig) {
                 $http.get('smartServers.json').then(
                     function(data) {
@@ -163,8 +156,13 @@ angular.module("smartTester")
 
             //initiate the login handshake...
             $scope.start = function() {
-
+                delete $scope.hideIframe;
                 $scope.iframeUrl = "about:blank";
+
+                //if we're going to open in a new tab, then hide the iFrame (so it's not confusing)
+                if ($scope.useTab) {
+                    $scope.hideIframe = true;
+                }
 
                 if ($scope.input.server.callback !== $scope.callBackUrl) {
                     alert('The callback url must be '+ $scope.callBackUrl);
@@ -186,7 +184,8 @@ angular.module("smartTester")
 
 
                         if ($scope.useTab) {
-                            //use a separate tab for the browser
+                            $scope.messages.push({msg:"Please click the continue button on the right side =====> ",src:'server'});
+                            //use a separate tab for the browser. This line will show the continue button that the user must press
                             $scope.externalTabUrl = url//;config.authorize;
                         } else {
                             //use an iframs for the browser
