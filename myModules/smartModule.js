@@ -93,7 +93,7 @@ let init = (app) => {
 
     //request a refresh token
     app.get('/refresh',function(req,res){
-        logger.log(req.wsConnection,'Requesting a refresh token','app');
+        logger.log(req.wsConnection,'using refresh to get a new access token','app');
         let vo = {};    //info to pass into the 'getAccessToken' function...
         //request an access token from the Auth server.
         let smartEndpoints = req.session['smartEndpoints']; //retrieve the configuration from the session. This was set in /appAuth.
